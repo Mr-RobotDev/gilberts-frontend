@@ -86,9 +86,9 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
   };
 
   return (
-    <div className='w-full md:w-1/2 space-y-4 pl-2 pr-10'>
+    <div className='w-full border-2 p-4 md:p-2 flex flex-col flex-1'>
       <h2 className='text-lg font-bold text-gray-900 mb-4'>Mode Settings</h2>
-      <div className='mb-5'>
+      <div className='mb-5 p-2'>
         <label className='block text-sm font-medium text-gray-700 mb-1'>
           Unit Mode
         </label>
@@ -102,7 +102,7 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
           value={items[unitValue].value}
         />
       </div>
-      <div className='mb-5'>
+      <div className='mb-5 p-2'>
         <label className='block text-sm font-medium text-gray-700 mb-1'>
           Operating Mode
         </label>
@@ -116,13 +116,13 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
           value={items[operatingValue].value}
         />
       </div>
-      <div className='mb-5'>
+      <div className='mb-5 p-2'>
         <label className='block text-sm font-medium text-gray-700 mb-1'>
           Heat Valve Output (%)
         </label>
         <Slider disabled marks={marks} value={heatingValueOutput} />
       </div>
-      <div className='mb-5'>
+      <div className='mb-5 p-2'>
         <label className='block text-sm font-medium text-gray-700 mb-1'>
           Heat Exchanger Output (%)
         </label>
