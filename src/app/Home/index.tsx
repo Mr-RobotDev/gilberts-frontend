@@ -48,7 +48,7 @@ const HomePage: React.FC<HomePageProps> = ({}) => {
         <Image src='/gilbert-logo.jpeg' alt='Logo' width={200} height={200} />
       </div>
 
-      <div className='flex flex-col md:flex-row'>
+      <div className='flex flex-col md:flex-row gap-3'>
         <EngineerSettings
           co2Marks={co2Marks}
           marks={marks}
@@ -57,13 +57,12 @@ const HomePage: React.FC<HomePageProps> = ({}) => {
         <CurrentReadings marks={marks} currentReadings={currentReadings} />
         <ModeSettings marks={marks} modeSettings={modeSettings} />
         <OperationInfluence
-          marks={marks}
           co2Marks={co2Marks}
           operationInfluence={operationInfluence}
         />
       </div>
 
-      <div className='flex justify-end p-7'>
+      <div className='flex justify-end py-4'>
         <div></div>
         <TeacherInterface teacherInterface={teacherInterface} />
       </div>

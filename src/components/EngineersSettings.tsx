@@ -231,11 +231,11 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
   }, [fanSpeedWinter]);
 
   return (
-    <div className='w-full md:w-1/2 space-y-4 pr-10'>
+    <div className='w-full border-2 p-4 md:p-2 flex flex-col flex-1'>
       <h2 className='text-lg font-bold text-gray-900 mb-4'>
         Engineer&apos;s Settings
       </h2>
-      <div className='mb-5'>
+      <div className='mb-5 p-2'>
         <label className='block text-sm font-medium text-gray-700 mb-1'>
           CO2 Level Band
         </label>
@@ -249,7 +249,7 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
           step={50}
         />
       </div>
-      <div className='mb-5'>
+      <div className='mb-5 p-2'>
         <label className='block text-sm font-medium text-gray-700 mb-1'>
           Fan Speed Settings - Summer
         </label>

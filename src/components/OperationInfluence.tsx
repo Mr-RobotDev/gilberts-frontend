@@ -7,16 +7,23 @@ import { useEffect, useState } from 'react';
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 interface OperationInfluenceProps {
-  marks: Record<number, string>;
   co2Marks: Record<number, string>;
   operationInfluence: Settings<'operationInfluence'>;
 }
 
 const OperationInfluence: React.FC<OperationInfluenceProps> = ({
-  marks,
   co2Marks,
   operationInfluence,
 }) => {
+  const marks = {
+    '-25': '-25°',
+    '35': '35°',
+  };
+
+  const imarks = {
+    '0': '0',
+    '35': '35',
+  };
   const [outsideAirTemperature, setOutsideAirTemperature] = useState<number>(
     operationInfluence.find((op) => op.id === 'outside-air-temperature')
       ?.value || 0
@@ -108,42 +115,44 @@ const OperationInfluence: React.FC<OperationInfluenceProps> = ({
   };
 
   return (
-    <div className='w-full md:w-1/2 space-y-4 pr-2'>
+    <div className='border-2 p-4 md:p-2 flex flex-col flex-1'>
       <h2 className='text-lg font-bold text-gray-900 mb-4'>
         Operature Influence
       </h2>
-      <Switch
-        checked={isChecked}
-        onChange={handleChange}
-        checkedChildren='1'
-        unCheckedChildren='0'
-        style={{ backgroundColor: 'blue' }}
-      />
-      <div className='mb-5'>
+      <div className='mb-2'>
+        <Switch
+          checked={isChecked}
+          onChange={handleChange}
+          checkedChildren='1'
+          unCheckedChildren='0'
+          style={{ backgroundColor: 'blue' }}
+        />
+      </div>
+      <div className='mb-5 p-2'>
         <label className='block text-sm font-medium text-gray-700 mb-1'>
           Outside Air Temperature
         </label>
         <Slider
-          marks={marks}
           min={-25}
           max={35}
           defaultValue={outsideAirTemperature}
           onChange={setOutsideAirTemperature}
+          marks={marks}
         />
       </div>
-      <div className='mb-5'>
+      <div className='mb-5 p-2'>
         <label className='block text-sm font-medium text-gray-700 mb-1'>
           Indoor Room Temperature
         </label>
         <Slider
-          marks={marks}
+          marks={imarks}
           min={0}
           max={35}
           defaultValue={indoorRoomTemperature}
           onChange={setIndoorRoomTemperature}
         />
       </div>
-      <div className='mb-8'>
+      <div className='mb-8 p-2'>
         <label className='block text-sm font-medium text-gray-700 mb-1'>
           Indoor CO2 (ppm)
         </label>

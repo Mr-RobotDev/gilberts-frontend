@@ -16,7 +16,7 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
   };
 
   return (
-    <div className='w-full md:w-1/2 space-y-4 pl-2 pr-10'>
+    <div className='w-full border-2 p-4 md:p-2 flex flex-col flex-1'>
       <h2 className='text-lg font-bold text-gray-900 mb-4'>Current Readings</h2>
       <div className='mb-5'>
         <label className='block text-sm font-medium text-gray-700 mb-1'>
@@ -28,7 +28,7 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
           value={getSliderValue('supply-fan-speed')}
         />
       </div>
-      <div className='mb-5'>
+      <div className='mb-5 p-2'>
         <label className='block text-sm font-medium text-gray-700 mb-1'>
           Extract Fan Speed
         </label>
@@ -38,7 +38,7 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
           value={getSliderValue('extract-fan-speed')}
         />
       </div>
-      <div className='mb-5'>
+      <div className='mb-5 p-2'>
         <label className='block text-sm font-medium text-gray-700 mb-1'>
           Room CO2 Level (ppm)
         </label>
@@ -48,7 +48,7 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
           value={getSliderValue('room-co2-level')}
         />
       </div>
-      <div className='mb-5'>
+      <div className='mb-5 p-2'>
         <label className='block text-sm font-medium text-gray-700 mb-1'>
           Room Temperature Level (°C)
         </label>
@@ -58,7 +58,7 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
           value={getSliderValue('room-temperature')}
         />
       </div>
-      <div className='mb-5'>
+      <div className='mb-5 p-2'>
         <label className='block text-sm font-medium text-gray-700 mb-1'>
           Outside Air Temperature (°C)
         </label>
