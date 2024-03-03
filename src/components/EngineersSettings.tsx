@@ -5,7 +5,7 @@ import { Slider } from 'antd';
 import { useEffect, useState } from 'react';
 import { debounce } from 'lodash';
 
-const apiUrl = process.env.API_URL;
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 interface EngineerSettingsProps {
   co2Marks: Record<number, string>;
   marks: Record<number, string>;
@@ -59,7 +59,7 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
         const [lowerLimit, upperLimit] = values;
 
         const response1 = await axios.post(
-          `https://gilbert-api.origin.tech/engineers-settings/co2-level-band-bottom`,
+          `${apiUrl}/engineers-settings/co2-level-band-bottom`,
           { value: lowerLimit },
           { headers: { 'Content-Type': 'application/json' } }
         );
@@ -69,7 +69,7 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
         }
 
         const response2 = await axios.post(
-          `https://gilbert-api.origin.tech/engineers-settings/co2-level-band-top`,
+          `${apiUrl}/engineers-settings/co2-level-band-top`,
           { value: upperLimit },
           { headers: { 'Content-Type': 'application/json' } }
         );
@@ -95,7 +95,7 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
         const [lowerLimit, upperLimit] = values;
 
         const response1 = await axios.post(
-          `https://gilbert-api.origin.tech/engineers-settings/fan-speed-settings-summer-lower`,
+          `${apiUrl}/engineers-settings/fan-speed-settings-summer-lower`,
           { value: lowerLimit },
           { headers: { 'Content-Type': 'application/json' } }
         );
@@ -105,7 +105,7 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
         }
 
         const response2 = await axios.post(
-          `https://gilbert-api.origin.tech/engineers-settings/fan-speed-settings-summer-upper`,
+          `${apiUrl}/engineers-settings/fan-speed-settings-summer-upper`,
           { value: upperLimit },
           { headers: { 'Content-Type': 'application/json' } }
         );
@@ -131,7 +131,7 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
         const [lowerLimit, upperLimit] = values;
 
         const response1 = await axios.post(
-          `https://gilbert-api.origin.tech/engineers-settings/fan-speed-settings-winter-upper`,
+          `${apiUrl}/engineers-settings/fan-speed-settings-winter-upper`,
           { value: upperLimit },
           { headers: { 'Content-Type': 'application/json' } }
         );
@@ -141,7 +141,7 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
         }
 
         const response2 = await axios.post(
-          `https://gilbert-api.origin.tech/engineers-settings/fan-speed-settings-winter-lower`,
+          `${apiUrl}/engineers-settings/fan-speed-settings-winter-lower`,
           { value: lowerLimit },
           { headers: { 'Content-Type': 'application/json' } }
         );

@@ -4,6 +4,8 @@ import type { MenuProps } from 'antd';
 import { useState } from 'react';
 import axios from 'axios';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 interface ModeSettingsProps {
   marks: Record<number, string>;
   modeSettings: { id: string; value: number }[];
@@ -64,7 +66,7 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
     try {
       const numericValue = parseInt(value.key, 10);
       await axios.post(
-        `https://gilbert-api.origin.tech/mode-settings/${url}`,
+        `${apiUrl}/mode-settings/${url}`,
         { value: numericValue },
         { headers: { 'Content-Type': 'application/json' } }
       );

@@ -3,6 +3,8 @@ import axios from 'axios';
 import { debounce } from 'lodash';
 import { useEffect, useState } from 'react';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 interface OperationInfluenceProps {
   marks: Record<number, string>;
   operationInfluence: { id: string; value: number }[];
@@ -41,7 +43,7 @@ const OperationInfluence: React.FC<OperationInfluenceProps> = ({
     const debouncedApiCall = debounce(async (value: number) => {
       try {
         const response = await axios.post(
-          'https://gilbert-api.origin.tech/operation-influence/outside-air-temperature',
+          `${apiUrl}/operation-influence/outside-air-temperature`,
           { value },
           { headers: { 'Content-Type': 'application/json' } }
         );
@@ -61,7 +63,7 @@ const OperationInfluence: React.FC<OperationInfluenceProps> = ({
     const debouncedApiCall = debounce(async (value: number) => {
       try {
         const response = await axios.post(
-          'https://gilbert-api.origin.tech/operation-influence/indoor-room-temperature',
+          `${apiUrl}/operation-influence/indoor-room-temperature`,
           { value },
           { headers: { 'Content-Type': 'application/json' } }
         );
@@ -81,7 +83,7 @@ const OperationInfluence: React.FC<OperationInfluenceProps> = ({
     const debouncedApiCall = debounce(async (value: number) => {
       try {
         const response = await axios.post(
-          'https://gilbert-api.origin.tech/operation-influence/indoor-co2',
+          `${apiUrl}/operation-influence/indoor-co2`,
           { value },
           { headers: { 'Content-Type': 'application/json' } }
         );
@@ -101,7 +103,7 @@ const OperationInfluence: React.FC<OperationInfluenceProps> = ({
     setIsChecked(checked);
     try {
       await axios.post(
-        'https://gilbert-api.origin.tech/operation-influence/override-value',
+        `${apiUrl}/operation-influence/override-value`,
         { value: checked ? 1 : 0 },
         { headers: { 'Content-Type': 'application/json' } }
       );

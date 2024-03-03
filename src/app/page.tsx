@@ -12,17 +12,19 @@ async function fetchData(url) {
 
 export default async function Home() {
   const currentSettings = await fetchData(
-    `${process.env.API_URL}/current-readings`
+    `${process.env.NEXT_PUBLIC_API_URL}/current-readings`
   );
-  const modeSettings = await fetchData(`${process.env.API_URL}/mode-settings`);
+  const modeSettings = await fetchData(
+    `${process.env.NEXT_PUBLIC_API_URL}/mode-settings`
+  );
   const engineerSettings = await fetchData(
-    `${process.env.API_URL}/engineers-settings`
+    `${process.env.NEXT_PUBLIC_API_URL}/engineers-settings`
   );
   const teacherInterface = await fetchData(
-    `${process.env.API_URL}/teacher-interface`
+    `${process.env.NEXT_PUBLIC_API_URL}/teacher-interface`
   );
   const operationInfluence = await fetchData(
-    `${process.env.API_URL}/operation-influence`
+    `${process.env.NEXT_PUBLIC_API_URL}/operation-influence`
   );
 
   return (
