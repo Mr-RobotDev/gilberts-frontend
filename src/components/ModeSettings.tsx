@@ -1,4 +1,4 @@
-import { Dropdown, Menu, Select, Slider, Space } from 'antd';
+import { Select, Slider } from 'antd';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Settings } from '@/types/Setting';
@@ -93,7 +93,7 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
           Unit Mode
         </label>
         <Select
-          style={{ width: 120 }}
+          style={{ width: 200 }}
           onChange={(selectedValue) => handleChange(selectedValue, 'unit')}
           options={items.map((item) => ({
             label: item.value,
@@ -107,7 +107,7 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
           Operating Mode
         </label>
         <Select
-          style={{ width: 120 }}
+          style={{ width: 200 }}
           onChange={(selectedValue) => handleChange(selectedValue, 'operating')}
           options={items.map((item) => ({
             label: item.value,
