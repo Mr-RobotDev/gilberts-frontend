@@ -5,6 +5,7 @@ import { Slider } from 'antd';
 import { useEffect, useState } from 'react';
 import { debounce } from 'lodash';
 import { Settings } from '@/types/Setting';
+import { notification } from 'antd';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 interface EngineerSettingsProps {
@@ -119,6 +120,13 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
       try {
         const [lowerLimit, upperLimit] = values;
 
+        if (lowerLimit > 1000) {
+          notification.error({
+            message: 'Value must not be greater than 1000',
+          });
+
+          return;
+        }
         const response1 = await axios.post(
           `${apiUrl}/engineers-settings/co2-level-band-bottom`,
           { value: lowerLimit },

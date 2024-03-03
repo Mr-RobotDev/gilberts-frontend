@@ -1,27 +1,44 @@
 'use client';
-
 import EngineerSettings from '@/components/EngineersSettings';
 import CurrentReadings from '@/components/CurrentReadings';
 import ModeSettings from '@/components/ModeSettings';
 import OperationInfluence from '@/components/OperationInfluence';
 import { Settings } from '@/types/Setting';
 import Image from 'next/image';
+import useSWR from 'swr';
+import {
+  useCurrentReadings,
+  useEngineerSettings,
+  useModeSettings,
+  useOperationInfluence,
+  useTeacherInterface,
+} from '@/fetchData';
+import { Spin } from 'antd';
+import TeacherInterface from '@/components/TeachersInterface';
 
-interface HomePageProps {
-  currentReadings: Settings<'currentReadings'>;
-  modeSettings: Settings<'modeSettings'>;
-  engineerSettings: Settings<'engineerSettings'>;
-  teacherInterface: Settings<'teacherInterface'>;
-  operationInfluence: Settings<'operationInfluence'>;
-}
+interface HomePageProps {}
 
-const HomePage: React.FC<HomePageProps> = ({
-  currentReadings,
-  modeSettings,
-  engineerSettings,
-  teacherInterface,
-  operationInfluence,
-}) => {
+const HomePage: React.FC<HomePageProps> = ({}) => {
+  const { data: currentReadings } = useCurrentReadings();
+  const { data: modeSettings } = useModeSettings();
+  const { data: engineerSettings } = useEngineerSettings();
+  const { data: teacherInterface } = useTeacherInterface();
+  const { data: operationInfluence } = useOperationInfluence();
+
+  if (
+    !currentReadings ||
+    !modeSettings ||
+    !engineerSettings ||
+    !teacherInterface ||
+    !operationInfluence
+  ) {
+    return (
+      <div className='flex w-screen h-screen items-center justify-center'>
+        <Spin size='large' />
+      </div>
+    );
+  }
+
   const co2Marks = { 0: '0', 5000: '5000' };
   const marks = { 0: '0', 100: '100' };
 
@@ -44,6 +61,11 @@ const HomePage: React.FC<HomePageProps> = ({
           co2Marks={co2Marks}
           operationInfluence={operationInfluence}
         />
+      </div>
+
+      <div className='flex justify-end p-7'>
+        <div></div>
+        <TeacherInterface teacherInterface={teacherInterface} />
       </div>
     </div>
   );
