@@ -11,7 +11,7 @@ async function fetchData(url: string) {
 }
 
 export default async function Home() {
-  const currentSettings = await fetchData(
+  const currentReadings = await fetchData(
     `${process.env.NEXT_PUBLIC_API_URL}/current-readings`
   );
   const modeSettings = await fetchData(
@@ -29,11 +29,11 @@ export default async function Home() {
 
   return (
     <HomePage
-      currentSettings={currentSettings}
-      modeSettings={modeSettings}
       engineerSettings={engineerSettings}
-      teacherInterface={teacherInterface}
+      currentReadings={currentReadings}
+      modeSettings={modeSettings}
       operationInfluence={operationInfluence}
+      teacherInterface={teacherInterface}
     />
   );
 }

@@ -8,7 +8,7 @@ import { Settings } from '@/types/Setting';
 import Image from 'next/image';
 
 interface HomePageProps {
-  currentSettings: Settings<'currentSettings'>;
+  currentReadings: Settings<'currentReadings'>;
   modeSettings: Settings<'modeSettings'>;
   engineerSettings: Settings<'engineerSettings'>;
   teacherInterface: Settings<'teacherInterface'>;
@@ -16,7 +16,7 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({
-  currentSettings,
+  currentReadings,
   modeSettings,
   engineerSettings,
   teacherInterface,
@@ -37,7 +37,7 @@ const HomePage: React.FC<HomePageProps> = ({
           marks={marks}
           engineerSettings={engineerSettings}
         />
-        <CurrentReadings marks={marks} currentSettings={currentSettings} />
+        <CurrentReadings marks={marks} currentReadings={currentReadings} />
         <ModeSettings marks={marks} modeSettings={modeSettings} />
         <OperationInfluence
           marks={marks}

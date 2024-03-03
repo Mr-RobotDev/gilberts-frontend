@@ -3,15 +3,15 @@ import { Slider } from 'antd';
 
 interface CurrentReadingsProps {
   marks: Record<number, string>;
-  currentSettings: Settings<'currentSettings'>;
+  currentReadings: Settings<'currentReadings'>;
 }
 
 const CurrentReadings: React.FC<CurrentReadingsProps> = ({
   marks,
-  currentSettings,
+  currentReadings,
 }) => {
   const getSliderValue = (id: string): number => {
-    const setting = currentSettings.find((setting) => setting.id === id);
+    const setting = currentReadings.find((setting) => setting.id === id);
     return setting ? setting.value : 0;
   };
 
