@@ -11,6 +11,13 @@ interface ModeSettingsProps {
 }
 
 const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
+  const [unitValue, setUnitValue] = useState<number>(
+    modeSettings.find((setting) => setting.id === 'unit-mode')?.value || 0
+  );
+  const [operatingValue, setOperatingValue] = useState<number>(
+    modeSettings.find((setting) => setting.id === 'operating-mode')?.value || 0
+  );
+
   const [heatingValueOutput, setHeatingValueOutput] = useState<number>(0);
   const [heatExchangerOutput, setHeatExchangerOutput] = useState<number>(0);
 
@@ -53,16 +60,26 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
     }
   }, [modeSettings]);
 
-  const handleChange = async (selectedValue: string) => {
-    let url = selectedValue === 'unit' ? 'unit-mode' : 'operating-mode';
+  const handleChange = async (selectedValue: number | string, type: string) => {
+    let url = type === 'unit' ? 'unit-mode' : 'operating-mode';
 
     try {
-      const numericValue = parseInt(selectedValue, 10);
+      const numericValue =
+        typeof selectedValue === 'string'
+          ? parseInt(selectedValue, 10)
+          : selectedValue;
+
       await axios.post(
         `${apiUrl}/mode-settings/${url}`,
         { value: numericValue },
         { headers: { 'Content-Type': 'application/json' } }
       );
+
+      if (type === 'unit') {
+        setUnitValue(numericValue);
+      } else if (type === 'operating') {
+        setOperatingValue(numericValue);
+      }
     } catch (error) {
       console.error('Error setting unit mode:', error);
     }
@@ -77,11 +94,12 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
         </label>
         <Select
           style={{ width: 120 }}
-          onChange={(selectedValue) => handleChange(selectedValue)}
+          onChange={(selectedValue) => handleChange(selectedValue, 'unit')}
           options={items.map((item) => ({
             label: item.value,
             value: item.key,
           }))}
+          value={items[unitValue].value}
         />
       </div>
       <div className='mb-5'>
@@ -90,11 +108,12 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
         </label>
         <Select
           style={{ width: 120 }}
-          onChange={(selectedValue) => handleChange(selectedValue)}
+          onChange={(selectedValue) => handleChange(selectedValue, 'operating')}
           options={items.map((item) => ({
             label: item.value,
             value: item.key,
           }))}
+          value={items[operatingValue].value}
         />
       </div>
       <div className='mb-5'>
