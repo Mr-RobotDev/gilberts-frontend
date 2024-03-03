@@ -1,3 +1,4 @@
+import { Settings } from '@/types/Setting';
 import { Slider, Switch } from 'antd';
 import axios from 'axios';
 import { debounce } from 'lodash';
@@ -7,33 +8,25 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 interface OperationInfluenceProps {
   marks: Record<number, string>;
-  operationInfluence: { id: string; value: number }[];
+  operationInfluence: Settings<'operationInfluence'>;
 }
 
 const OperationInfluence: React.FC<OperationInfluenceProps> = ({
   marks,
   operationInfluence,
 }) => {
-  const defaultValues: Record<string, number> = {
-    'outside-air-temperature': 0,
-    'indoor-room-temperature': 0,
-    'indoor-co2': 0,
-  };
-
-  operationInfluence.forEach((item) => {
-    if (defaultValues.hasOwnProperty(item.id)) {
-      defaultValues[item.id] = item.value;
-    }
-  });
-
   const [outsideAirTemperature, setOutsideAirTemperature] = useState<number>(
-    defaultValues['outside-air-temperature']
+    operationInfluence.find((op) => op.id === 'outside-air-temperature')
+      ?.value || 0
   );
+
   const [indoorRoomTemperature, setIndoorRoomTemperature] = useState<number>(
-    defaultValues['indoor-room-temperature']
+    operationInfluence.find((op) => op.id === 'indoor-room-temperature')
+      ?.value || 0
   );
+
   const [indoorCO2, setIndoorCO2] = useState<number>(
-    defaultValues['indoor-co2']
+    operationInfluence.find((op) => op.id === 'indoor-co2')?.value || 0
   );
   const [isChecked, setIsChecked] = useState<boolean>(
     operationInfluence.find((item) => item.id === 'override-value')?.value === 1

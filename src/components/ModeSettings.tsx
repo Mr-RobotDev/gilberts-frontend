@@ -1,21 +1,20 @@
 import { Dropdown, Menu, Select, Slider, Space } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
-import type { MenuProps } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Settings } from '@/types/Setting';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 interface ModeSettingsProps {
   marks: Record<number, string>;
-  modeSettings: { id: string; value: number }[];
+  modeSettings: Settings<'modeSettings'>;
 }
 
 const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
   const [heatingValueOutput, setHeatingValueOutput] = useState<number>(0);
   const [heatExchangerOutput, setHeatExchangerOutput] = useState<number>(0);
 
-  const items: MenuProps['items'] = [
+  const items = [
     {
       key: '0',
       value: 'Dormant',
@@ -38,7 +37,7 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
     },
   ];
 
-  useState(() => {
+  useEffect(() => {
     const heatingValueSetting = modeSettings.find(
       (setting) => setting.id === 'heating-valve-output'
     );
@@ -52,19 +51,13 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
     if (heatExchangerSetting) {
       setHeatExchangerOutput(heatExchangerSetting.value);
     }
-  });
+  }, [modeSettings]);
 
-  const handleChange = async (key: string, value: string) => {
-    let url;
-
-    if (key === 'unit') {
-      url = 'unit-mode';
-    } else {
-      url = 'operating-mode';
-    }
+  const handleChange = async (selectedValue: string) => {
+    let url = selectedValue === 'unit' ? 'unit-mode' : 'operating-mode';
 
     try {
-      const numericValue = parseInt(value.key, 10);
+      const numericValue = parseInt(selectedValue, 10);
       await axios.post(
         `${apiUrl}/mode-settings/${url}`,
         { value: numericValue },
@@ -84,8 +77,11 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
         </label>
         <Select
           style={{ width: 120 }}
-          onChange={(key, value) => handleChange('unit', value)}
-          options={items}
+          onChange={(selectedValue) => handleChange(selectedValue)}
+          options={items.map((item) => ({
+            label: item.value,
+            value: item.key,
+          }))}
         />
       </div>
       <div className='mb-5'>
@@ -94,8 +90,11 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
         </label>
         <Select
           style={{ width: 120 }}
-          onChange={(key, value) => handleChange('operating', value)}
-          options={items}
+          onChange={(selectedValue) => handleChange(selectedValue)}
+          options={items.map((item) => ({
+            label: item.value,
+            value: item.key,
+          }))}
         />
       </div>
       <div className='mb-5'>

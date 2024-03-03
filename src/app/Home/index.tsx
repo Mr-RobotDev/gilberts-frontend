@@ -4,8 +4,17 @@ import EngineerSettings from '@/components/EngineersSettings';
 import CurrentReadings from '@/components/CurrentReadings';
 import ModeSettings from '@/components/ModeSettings';
 import OperationInfluence from '@/components/OperationInfluence';
+import { Settings } from '@/types/Setting';
 
-const HomePage: React.FC = ({
+interface HomePageProps {
+  currentSettings: Settings<'currentSettings'>;
+  modeSettings: Settings<'modeSettings'>;
+  engineerSettings: Settings<'engineerSettings'>;
+  teacherInterface: Settings<'teacherInterface'>;
+  operationInfluence: Settings<'operationInfluence'>;
+}
+
+const HomePage: React.FC<HomePageProps> = ({
   currentSettings,
   modeSettings,
   engineerSettings,

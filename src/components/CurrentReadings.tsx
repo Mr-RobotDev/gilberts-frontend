@@ -1,8 +1,9 @@
+import { Settings } from '@/types/Setting';
 import { Slider } from 'antd';
 
 interface CurrentReadingsProps {
   marks: Record<number, string>;
-  currentSettings: { id: string; value: number }[];
+  currentSettings: Settings<'currentSettings'>;
 }
 
 const CurrentReadings: React.FC<CurrentReadingsProps> = ({
