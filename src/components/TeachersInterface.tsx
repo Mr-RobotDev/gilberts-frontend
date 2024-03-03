@@ -62,24 +62,48 @@ const TeacherInterface: React.FC<TeacherInterfaceProps> = ({
       <Button
         type={selectedButton === ButtonValue.AUTO ? 'primary' : 'default'}
         onClick={() => handleButtonClick(ButtonValue.AUTO)}
+        style={{
+          backgroundColor:
+            selectedButton === ButtonValue.AUTO ? '#1890ff' : 'transparent',
+          color: selectedButton === ButtonValue.AUTO ? '#fff' : '#000',
+        }}
       >
         AUTO
       </Button>
       <Button
         type={selectedButton === ButtonValue.VENT_BOOST ? 'primary' : 'default'}
         onClick={() => handleButtonClick(ButtonValue.VENT_BOOST)}
+        style={{
+          backgroundColor:
+            selectedButton === ButtonValue.VENT_BOOST
+              ? '#1890ff'
+              : 'transparent',
+          color: selectedButton === ButtonValue.VENT_BOOST ? '#fff' : '#000',
+        }}
       >
         VENT BOOST
       </Button>
       <Button
         type={selectedButton === ButtonValue.HEAT_BOOST ? 'primary' : 'default'}
         onClick={() => handleButtonClick(ButtonValue.HEAT_BOOST)}
+        style={{
+          backgroundColor:
+            selectedButton === ButtonValue.HEAT_BOOST
+              ? '#1890ff'
+              : 'transparent',
+          color: selectedButton === ButtonValue.HEAT_BOOST ? '#fff' : '#000',
+        }}
       >
         HEAT BOOST
       </Button>
       <Button
         type={selectedButton === ButtonValue.OFF ? 'primary' : 'default'}
         onClick={() => handleButtonClick(ButtonValue.OFF)}
+        style={{
+          backgroundColor:
+            selectedButton === ButtonValue.OFF ? '#1890ff' : 'transparent',
+          color: selectedButton === ButtonValue.OFF ? '#fff' : '#000',
+        }}
       >
         OFF
       </Button>
