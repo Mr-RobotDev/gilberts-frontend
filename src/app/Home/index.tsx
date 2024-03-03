@@ -5,6 +5,7 @@ import CurrentReadings from '@/components/CurrentReadings';
 import ModeSettings from '@/components/ModeSettings';
 import OperationInfluence from '@/components/OperationInfluence';
 import { Settings } from '@/types/Setting';
+import Image from 'next/image';
 
 interface HomePageProps {
   currentSettings: Settings<'currentSettings'>;
@@ -26,9 +27,9 @@ const HomePage: React.FC<HomePageProps> = ({
 
   return (
     <div className='container mx-auto p-4'>
-      <h1 className='uppercase text-3xl my-4 py-3 bg-gradient-to-r from-indigo-500 to-blue-500 text-transparent bg-clip-text'>
-        GILBERTS
-      </h1>
+      <div className='py-8'>
+        <Image src='/gilbert-logo.jpeg' alt='Logo' width={300} height={300} />
+      </div>
 
       <div className='flex flex-col md:flex-row'>
         <EngineerSettings
