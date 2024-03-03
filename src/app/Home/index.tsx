@@ -41,6 +41,7 @@ const HomePage: React.FC<HomePageProps> = ({
         <ModeSettings marks={marks} modeSettings={modeSettings} />
         <OperationInfluence
           marks={marks}
+          co2Marks={co2Marks}
           operationInfluence={operationInfluence}
         />
       </div>

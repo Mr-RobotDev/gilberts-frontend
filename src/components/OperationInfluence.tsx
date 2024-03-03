@@ -8,11 +8,13 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 interface OperationInfluenceProps {
   marks: Record<number, string>;
+  co2Marks: Record<number, string>;
   operationInfluence: Settings<'operationInfluence'>;
 }
 
 const OperationInfluence: React.FC<OperationInfluenceProps> = ({
   marks,
+  co2Marks,
   operationInfluence,
 }) => {
   const [outsideAirTemperature, setOutsideAirTemperature] = useState<number>(
@@ -123,7 +125,7 @@ const OperationInfluence: React.FC<OperationInfluenceProps> = ({
         </label>
         <Slider
           marks={marks}
-          min={0}
+          min={-25}
           max={35}
           defaultValue={outsideAirTemperature}
           onChange={setOutsideAirTemperature}
@@ -146,9 +148,10 @@ const OperationInfluence: React.FC<OperationInfluenceProps> = ({
           Indoor CO2 (ppm)
         </label>
         <Slider
-          marks={marks}
+          marks={co2Marks}
           min={0}
-          max={35}
+          max={5000}
+          step={50}
           defaultValue={indoorCO2}
           onChange={setIndoorCO2}
         />
