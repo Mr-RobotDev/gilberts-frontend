@@ -1,28 +1,43 @@
-"use client";
+'use client';
 
-import EngineerSettings from "@/components/EngineersSettings";
-import CurrentReadings from "@/components/CurrentReadings";
-import ModeSettings from "@/components/ModeSettings";
-import OperationInfluence from "@/components/OperationInfluence";
+import EngineerSettings from '@/components/EngineersSettings';
+import CurrentReadings from '@/components/CurrentReadings';
+import ModeSettings from '@/components/ModeSettings';
+import OperationInfluence from '@/components/OperationInfluence';
+import { Settings } from '@/types/Setting';
 
-const HomePage: React.FC = () => {
+interface HomePageProps {
+  currentSettings: Settings<'currentSettings'>;
+  modeSettings: Settings<'modeSettings'>;
+  engineerSettings: Settings<'engineerSettings'>;
+  teacherInterface: Settings<'teacherInterface'>;
+  operationInfluence: Settings<'operationInfluence'>;
+}
+
+const HomePage: React.FC<HomePageProps> = ({
+  currentSettings,
+  modeSettings,
+  engineerSettings,
+  teacherInterface,
+  operationInfluence,
+}) => {
   const co2Marks = { 0: '0', 5000: '5000' };
   const marks = { 0: '0', 100: '100' };
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="flex flex-col md:flex-row">
-        <EngineerSettings co2Marks={co2Marks} marks={marks} />
-        <CurrentReadings
+    <div className='container mx-auto p-4'>
+      <div className='flex flex-col md:flex-row'>
+        <EngineerSettings
+          co2Marks={co2Marks}
           marks={marks}
-          supplyFanSpeed={40}
-          extractFanSpeed={60}
-          roomCO2Level={20}
-          roomTemperatureLevel={22}
-          outsideAirTemperature={15}
+          engineerSettings={engineerSettings}
         />
-        <ModeSettings marks={marks}/>
-        <OperationInfluence marks={marks}/>
+        <CurrentReadings marks={marks} currentSettings={currentSettings} />
+        <ModeSettings marks={marks} modeSettings={modeSettings} />
+        <OperationInfluence
+          marks={marks}
+          operationInfluence={operationInfluence}
+        />
       </div>
     </div>
   );

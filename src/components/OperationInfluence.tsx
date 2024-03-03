@@ -1,29 +1,157 @@
-import { Slider } from 'antd';
-import { useState } from 'react';
+import { Settings } from '@/types/Setting';
+import { Slider, Switch } from 'antd';
+import axios from 'axios';
+import { debounce } from 'lodash';
+import { useEffect, useState } from 'react';
+
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 interface OperationInfluenceProps {
   marks: Record<number, string>;
+  operationInfluence: Settings<'operationInfluence'>;
 }
 
-const OperationInfluence: React.FC<OperationInfluenceProps> = ({ marks }) => {
-  const [outsideAirTemperature, setOutsideAirTemperature] = useState<number>(300);
-  const [indoorRoomTemperature, setIndoorRoomTemperature] = useState<number>(50);
-  const [indoorCO2, setIndoorCO2] = useState<number>(30);
+const OperationInfluence: React.FC<OperationInfluenceProps> = ({
+  marks,
+  operationInfluence,
+}) => {
+  const [outsideAirTemperature, setOutsideAirTemperature] = useState<number>(
+    operationInfluence.find((op) => op.id === 'outside-air-temperature')
+      ?.value || 0
+  );
+
+  const [indoorRoomTemperature, setIndoorRoomTemperature] = useState<number>(
+    operationInfluence.find((op) => op.id === 'indoor-room-temperature')
+      ?.value || 0
+  );
+
+  const [indoorCO2, setIndoorCO2] = useState<number>(
+    operationInfluence.find((op) => op.id === 'indoor-co2')?.value || 0
+  );
+  const [isChecked, setIsChecked] = useState<boolean>(
+    operationInfluence.find((item) => item.id === 'override-value')?.value === 1
+  );
+
+  useEffect(() => {
+    const debouncedApiCall = debounce(async (value: number) => {
+      try {
+        const response = await axios.post(
+          `${apiUrl}/operation-influence/outside-air-temperature`,
+          { value },
+          { headers: { 'Content-Type': 'application/json' } }
+        );
+      } catch (error) {
+        console.error('Error setting unit mode:', error);
+      }
+    }, 2000);
+
+    debouncedApiCall(outsideAirTemperature);
+
+    return () => {
+      debouncedApiCall.cancel();
+    };
+  }, [outsideAirTemperature]);
+
+  useEffect(() => {
+    const debouncedApiCall = debounce(async (value: number) => {
+      try {
+        const response = await axios.post(
+          `${apiUrl}/operation-influence/indoor-room-temperature`,
+          { value },
+          { headers: { 'Content-Type': 'application/json' } }
+        );
+      } catch (error) {
+        console.error('Error setting operating mode:', error);
+      }
+    }, 2000);
+
+    debouncedApiCall(indoorRoomTemperature);
+
+    return () => {
+      debouncedApiCall.cancel();
+    };
+  }, [indoorRoomTemperature]);
+
+  useEffect(() => {
+    const debouncedApiCall = debounce(async (value: number) => {
+      try {
+        const response = await axios.post(
+          `${apiUrl}/operation-influence/indoor-co2`,
+          { value },
+          { headers: { 'Content-Type': 'application/json' } }
+        );
+      } catch (error) {
+        console.error('Error setting indoor CO2:', error);
+      }
+    }, 2000);
+
+    debouncedApiCall(indoorCO2);
+
+    return () => {
+      debouncedApiCall.cancel();
+    };
+  }, [indoorCO2]);
+
+  const handleChange = async (checked: boolean) => {
+    setIsChecked(checked);
+    try {
+      await axios.post(
+        `${apiUrl}/operation-influence/override-value`,
+        { value: checked ? 1 : 0 },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+    } catch (error) {
+      console.error('Error making API call:', error);
+    }
+  };
 
   return (
-    <div className="w-full md:w-1/2 space-y-4 pr-2">
-    <h2 className="text-lg font-bold text-gray-900 mb-4">Operature Influence</h2>
-      <div className="mb-5">
-        <label className="block text-sm font-medium text-gray-700 mb-1">Outside Air Temperature</label>
-        <Slider marks={marks} defaultValue={outsideAirTemperature} onChange={setOutsideAirTemperature} />
+    <div className='w-full md:w-1/2 space-y-4 pr-2'>
+      <h2 className='text-lg font-bold text-gray-900 mb-4'>
+        Operature Influence
+      </h2>
+      <Switch
+        checked={isChecked}
+        onChange={handleChange}
+        checkedChildren='1'
+        unCheckedChildren='0'
+        style={{ backgroundColor: 'blue' }}
+      />
+      <div className='mb-5'>
+        <label className='block text-sm font-medium text-gray-700 mb-1'>
+          Outside Air Temperature
+        </label>
+        <Slider
+          marks={marks}
+          min={0}
+          max={35}
+          defaultValue={outsideAirTemperature}
+          onChange={setOutsideAirTemperature}
+        />
       </div>
-      <div className="mb-5">
-        <label className="block text-sm font-medium text-gray-700 mb-1">Indoor Room Temperature</label>
-        <Slider marks={marks} defaultValue={indoorRoomTemperature} onChange={setIndoorRoomTemperature} />
+      <div className='mb-5'>
+        <label className='block text-sm font-medium text-gray-700 mb-1'>
+          Indoor Room Temperature
+        </label>
+        <Slider
+          marks={marks}
+          min={0}
+          max={35}
+          defaultValue={indoorRoomTemperature}
+          onChange={setIndoorRoomTemperature}
+        />
       </div>
-      <div className="mb-8">
-        <label className="block text-sm font-medium text-gray-700 mb-1">Indoor CO2 (ppm)</label>
-        <Slider marks={marks} defaultValue={indoorCO2} onChange={setIndoorCO2} />
+      <div className='mb-8'>
+        <label className='block text-sm font-medium text-gray-700 mb-1'>
+          Indoor CO2 (ppm)
+        </label>
+        <Slider
+          marks={marks}
+          min={0}
+          max={35}
+          defaultValue={indoorCO2}
+          onChange={setIndoorCO2}
+        />
       </div>
     </div>
   );
