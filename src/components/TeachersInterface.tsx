@@ -54,9 +54,6 @@ const TeacherInterface: React.FC<TeacherInterfaceProps> = ({
     <div className='border-2 p-2 flex flex-col gap-3 w-full md:w-4/12'>
       <p className='font-bold text-md md:text-lg text-gray-900'>
         Teacher Interface{' '}
-        <span className='text-[11px] md:text-[14px]'>
-          Auto/VENT BOOST/HEAT BOOST/OFF
-        </span>
       </p>
 
       <Button
