@@ -28,7 +28,7 @@ const HomePage: React.FC<HomePageProps> = ({
   return (
     <div className='container mx-auto p-4'>
       <div className='py-8'>
-        <Image src='/gilbert-logo.jpeg' alt='Logo' width={300} height={300} />
+        <Image src='/gilbert-logo.jpeg' alt='Logo' width={200} height={200} />
       </div>
 
       <div className='flex flex-col md:flex-row'>
