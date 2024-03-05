@@ -120,13 +120,13 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
         <label className='block text-sm font-medium text-gray-700 mb-1'>
           Heat Valve Output (%)
         </label>
-        <Slider disabled marks={marks} value={heatingValueOutput} />
+        <Slider tooltip={{open: true, placement: 'bottom'}} disabled marks={marks} value={heatingValueOutput} />
       </div>
       <div className='mb-5 p-2'>
         <label className='block text-sm font-medium text-gray-700 mb-1'>
           Heat Exchanger Output (%)
         </label>
-        <Slider disabled marks={marks} value={heatExchangerOutput} />
+        <Slider disabled tooltip={{open: true, placement: 'bottom'}} marks={marks} value={heatExchangerOutput} />
       </div>
     </div>
   );

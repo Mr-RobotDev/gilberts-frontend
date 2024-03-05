@@ -53,7 +53,7 @@ const HomePage: React.FC<HomePageProps> = ({}) => {
           marks={marks}
           engineerSettings={engineerSettings}
         />
-        <CurrentReadings marks={marks} currentReadings={currentReadings} />
+        <CurrentReadings marks={marks} co2marks={co2Marks} currentReadings={currentReadings} />
         <ModeSettings marks={marks} modeSettings={modeSettings} />
         <OperatorInfluence
           co2Marks={co2Marks}

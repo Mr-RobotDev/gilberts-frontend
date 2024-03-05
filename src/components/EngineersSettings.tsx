@@ -243,7 +243,7 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
           range
           marks={co2Marks}
           defaultValue={co2Level}
-          onChange={onSliderChange(setCo2Level)}
+          onChangeComplete={onSliderChange(setCo2Level)}
           min={0}
           max={5000}
           step={50}
@@ -257,7 +257,7 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
           range
           marks={marks}
           defaultValue={fanSpeedSummer}
-          onChange={onSliderChange(setFanSpeedSummer)}
+          onChangeComplete={onSliderChange(setFanSpeedSummer)}
           min={0}
           max={100}
         />
@@ -270,7 +270,7 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
           range
           marks={marks}
           defaultValue={fanSpeedWinter}
-          onChange={onSliderChange(setFanSpeedWinter)}
+          onChangeComplete={onSliderChange(setFanSpeedWinter)}
           min={0}
           max={100}
         />

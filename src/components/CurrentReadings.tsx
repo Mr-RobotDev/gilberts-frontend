@@ -3,17 +3,22 @@ import { Slider } from 'antd';
 
 interface CurrentReadingsProps {
   marks: Record<number, string>;
+  co2marks: Record<number, string>;
   currentReadings: Settings<'currentReadings'>;
 }
 
 const CurrentReadings: React.FC<CurrentReadingsProps> = ({
   marks,
+  co2marks,
   currentReadings,
 }) => {
   const getSliderValue = (id: string): number => {
     const setting = currentReadings.find((setting) => setting.id === id);
     return setting ? setting.value : 0;
   };
+
+  const roomTemperatureLevelMarks = { 0: '0', 30: '30' };
+  const outsideAirTemperatureMarks = { '-10': '-10', '30': '30' };
 
   return (
     <div className='w-full border-2 p-4 md:p-2 flex flex-col flex-1'>
@@ -25,6 +30,7 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
         <Slider
           disabled
           marks={marks}
+          tooltip={{open: true, placement: 'bottom'}}
           value={getSliderValue('supply-fan-speed')}
         />
       </div>
@@ -34,6 +40,7 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
         </label>
         <Slider
           disabled
+          tooltip={{open: true, placement: 'bottom'}}
           marks={marks}
           value={getSliderValue('extract-fan-speed')}
         />
@@ -44,7 +51,10 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
         </label>
         <Slider
           disabled
-          marks={marks}
+          tooltip={{open: true, placement: 'bottom'}}
+          min={0}
+          max={5000}
+          marks={co2marks}
           value={getSliderValue('room-co2-level')}
         />
       </div>
@@ -54,7 +64,10 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
         </label>
         <Slider
           disabled
-          marks={marks}
+          tooltip={{open: true, placement: 'bottom'}}
+          min={0}
+          max={30}
+          marks={roomTemperatureLevelMarks}
           value={getSliderValue('room-temperature')}
         />
       </div>
@@ -64,7 +77,10 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
         </label>
         <Slider
           disabled
-          marks={marks}
+          tooltip={{open: true, placement: 'bottom'}}
+          min={-10}
+          max={30}
+          marks={outsideAirTemperatureMarks}
           value={getSliderValue('outside-air-temperature')}
         />
       </div>
