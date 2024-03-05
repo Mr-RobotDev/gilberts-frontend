@@ -2,15 +2,14 @@
 import EngineerSettings from '@/components/EngineersSettings';
 import CurrentReadings from '@/components/CurrentReadings';
 import ModeSettings from '@/components/ModeSettings';
-import OperationInfluence from '@/components/OperationInfluence';
-import { Settings } from '@/types/Setting';
+import OperatorInfluence from '@/components/OperatornInfluence';
 import Image from 'next/image';
-import useSWR from 'swr';
+
 import {
   useCurrentReadings,
   useEngineerSettings,
   useModeSettings,
-  useOperationInfluence,
+  useOperatorInfluence,
   useTeacherInterface,
 } from '@/fetchData';
 import { Spin } from 'antd';
@@ -23,14 +22,14 @@ const HomePage: React.FC<HomePageProps> = ({}) => {
   const { data: modeSettings } = useModeSettings();
   const { data: engineerSettings } = useEngineerSettings();
   const { data: teacherInterface } = useTeacherInterface();
-  const { data: operationInfluence } = useOperationInfluence();
+  const { data: operatorInfluence } = useOperatorInfluence();
 
   if (
     !currentReadings ||
     !modeSettings ||
     !engineerSettings ||
     !teacherInterface ||
-    !operationInfluence
+    !operatorInfluence
   ) {
     return (
       <div className='flex w-screen h-screen items-center justify-center'>
@@ -56,9 +55,9 @@ const HomePage: React.FC<HomePageProps> = ({}) => {
         />
         <CurrentReadings marks={marks} currentReadings={currentReadings} />
         <ModeSettings marks={marks} modeSettings={modeSettings} />
-        <OperationInfluence
+        <OperatorInfluence
           co2Marks={co2Marks}
-          operationInfluence={operationInfluence}
+          operatorInfluence={operatorInfluence}
         />
       </div>
 

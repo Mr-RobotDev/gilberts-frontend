@@ -39,9 +39,9 @@ export function useTeacherInterface() {
   );
 }
 
-export function useOperationInfluence() {
+export function useOperatorInfluence() {
   return useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/operation-influence`,
+    `${process.env.NEXT_PUBLIC_API_URL}/operator-influence`,
     fetchData
   );
 }

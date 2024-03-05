@@ -6,14 +6,14 @@ import { useEffect, useState } from 'react';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-interface OperationInfluenceProps {
+interface OperatorInfluenceProps {
   co2Marks: Record<number, string>;
-  operationInfluence: Settings<'operationInfluence'>;
+  operatorInfluence: Settings<'operatorInfluence'>;
 }
 
-const OperationInfluence: React.FC<OperationInfluenceProps> = ({
+const OperatorInfluence: React.FC<OperatorInfluenceProps> = ({
   co2Marks,
-  operationInfluence,
+  operatorInfluence,
 }) => {
   const marks = {
     '-25': '-25°',
@@ -25,27 +25,27 @@ const OperationInfluence: React.FC<OperationInfluenceProps> = ({
     '35': '35',
   };
   const [outsideAirTemperature, setOutsideAirTemperature] = useState<number>(
-    operationInfluence.find((op) => op.id === 'outside-air-temperature')
+    operatorInfluence.find((op) => op.id === 'outside-air-temperature')
       ?.value || 0
   );
 
   const [indoorRoomTemperature, setIndoorRoomTemperature] = useState<number>(
-    operationInfluence.find((op) => op.id === 'indoor-room-temperature')
+    operatorInfluence.find((op) => op.id === 'indoor-room-temperature')
       ?.value || 0
   );
 
   const [indoorCO2, setIndoorCO2] = useState<number>(
-    operationInfluence.find((op) => op.id === 'indoor-co2')?.value || 0
+    operatorInfluence.find((op) => op.id === 'indoor-co2')?.value || 0
   );
   const [isChecked, setIsChecked] = useState<boolean>(
-    operationInfluence.find((item) => item.id === 'override-value')?.value === 1
+    operatorInfluence.find((item) => item.id === 'override-value')?.value === 1
   );
 
   useEffect(() => {
     const debouncedApiCall = debounce(async (value: number) => {
       try {
         const response = await axios.post(
-          `${apiUrl}/operation-influence/outside-air-temperature`,
+          `${apiUrl}/operator-influence/outside-air-temperature`,
           { value },
           { headers: { 'Content-Type': 'application/json' } }
         );
@@ -65,7 +65,7 @@ const OperationInfluence: React.FC<OperationInfluenceProps> = ({
     const debouncedApiCall = debounce(async (value: number) => {
       try {
         const response = await axios.post(
-          `${apiUrl}/operation-influence/indoor-room-temperature`,
+          `${apiUrl}/operator-influence/indoor-room-temperature`,
           { value },
           { headers: { 'Content-Type': 'application/json' } }
         );
@@ -85,7 +85,7 @@ const OperationInfluence: React.FC<OperationInfluenceProps> = ({
     const debouncedApiCall = debounce(async (value: number) => {
       try {
         const response = await axios.post(
-          `${apiUrl}/operation-influence/indoor-co2`,
+          `${apiUrl}/operator-influence/indoor-co2`,
           { value },
           { headers: { 'Content-Type': 'application/json' } }
         );
@@ -105,7 +105,7 @@ const OperationInfluence: React.FC<OperationInfluenceProps> = ({
     setIsChecked(checked);
     try {
       await axios.post(
-        `${apiUrl}/operation-influence/override-value`,
+        `${apiUrl}/operator-influence/override-value`,
         { value: checked ? 1 : 0 },
         { headers: { 'Content-Type': 'application/json' } }
       );
@@ -117,7 +117,7 @@ const OperationInfluence: React.FC<OperationInfluenceProps> = ({
   return (
     <div className='border-2 p-4 md:p-2 flex flex-col flex-1'>
       <h2 className='text-lg font-bold text-gray-900 mb-4'>
-        Operature Influence
+        Operator Influence
       </h2>
       <div className='mb-2'>
         <Switch
@@ -169,4 +169,4 @@ const OperationInfluence: React.FC<OperationInfluenceProps> = ({
   );
 };
 
-export default OperationInfluence;
+export default OperatorInfluence;

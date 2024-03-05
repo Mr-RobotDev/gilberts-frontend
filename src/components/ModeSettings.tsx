@@ -90,7 +90,7 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
       <h2 className='text-lg font-bold text-gray-900 mb-4'>Mode Settings</h2>
       <div className='mb-5 p-2'>
         <label className='block text-sm font-medium text-gray-700 mb-1'>
-          Unit Mode
+          Unit Mode (Master/Slave)
         </label>
         <Select
           style={{ width: 200 }}
