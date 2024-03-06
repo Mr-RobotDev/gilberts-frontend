@@ -138,6 +138,7 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
             open: true,
             placement: "bottom",
             color: "blue",
+            autoAdjustOverflow: false,
           }}
           min={0}
           max={100}
@@ -156,6 +157,7 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
             open: true,
             placement: "bottom",
             color: "blue",
+            autoAdjustOverflow: false,
           }}
           min={0}
           max={100}

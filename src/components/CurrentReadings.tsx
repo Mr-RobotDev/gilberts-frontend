@@ -33,6 +33,7 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
             open: true,
             placement: "bottom",
             color: "blue",
+            autoAdjustOverflow: false,
           }}
           marks={marks}
           value={getSliderValue("supply-fan-speed")}
@@ -48,6 +49,7 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
             open: true,
             placement: "bottom",
             color: "blue",
+            autoAdjustOverflow: false,
           }}
           marks={marks}
           value={getSliderValue("extract-fan-speed")}
@@ -64,6 +66,7 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
             open: true,
             placement: "bottom",
             color: "blue",
+            autoAdjustOverflow: false,
           }}
           min={0}
           max={5000}
@@ -82,6 +85,7 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
             open: true,
             placement: "bottom",
             color: "blue",
+            autoAdjustOverflow: false,
           }}
           min={0}
           max={30}
@@ -100,6 +104,7 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
             open: true,
             placement: "bottom",
             color: "blue",
+            autoAdjustOverflow: false,
           }}
           min={-10}
           max={30}
