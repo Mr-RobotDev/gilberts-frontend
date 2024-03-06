@@ -24,6 +24,17 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
   const items = [
     {
       key: "0",
+      value: "Master",
+    },
+    {
+      key: "1",
+      value: "Master/Slave",
+    },
+  ];
+
+  const operatingModeItems = [
+    {
+      key: "0",
       value: "Dormant",
     },
     {
@@ -109,11 +120,11 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
         <Select
           style={{ width: 200 }}
           onChange={(selectedValue) => handleChange(selectedValue, "operating")}
-          options={items.map((item) => ({
+          options={operatingModeItems.map((item) => ({
             label: item.value,
             value: item.key,
           }))}
-          value={items[operatingValue].value}
+          value={operatingModeItems[operatingValue].value}
         />
       </div>
       <div className="mb-5 p-2">
