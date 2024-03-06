@@ -153,7 +153,7 @@ const OperatorInfluence: React.FC<OperatorInfluenceProps> = ({
           onChangeComplete={setIndoorRoomTemperature}
         />
       </div>
-      <div className='mb-8 p-2'>
+      <div className='mb-5 p-2'>
         <label className='block text-sm font-medium text-gray-700 mb-1'>
           Indoor CO2 (ppm)
         </label>

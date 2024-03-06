@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import axios from 'axios';
-import { Slider } from 'antd';
-import { useEffect, useState } from 'react';
-import { debounce } from 'lodash';
-import { Settings } from '@/types/Setting';
-import { notification } from 'antd';
+import axios from "axios";
+import { Slider } from "antd";
+import { useEffect, useState } from "react";
+import { debounce } from "lodash";
+import { Settings } from "@/types/Setting";
+import { notification } from "antd";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 interface EngineerSettingsProps {
   co2Marks: Record<number, string>;
   marks: Record<number, string>;
-  engineerSettings: Settings<'engineerSettings'>;
+  engineerSettings: Settings<"engineerSettings">;
 }
 type SliderState = [number, number];
 
@@ -22,31 +22,31 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
 }) => {
   const defaultCo2Level =
     Array.isArray(engineerSettings) &&
-    (engineerSettings.find((setting) => setting.id === 'co2-level-band-bottom')
+    (engineerSettings.find((setting) => setting.id === "co2-level-band-bottom")
       ?.value ||
       0);
 
   const defaultFanSpeedSummer =
     Array.isArray(engineerSettings) &&
     (engineerSettings.find(
-      (setting) => setting.id === 'fan-speed-settings-summer-lower'
+      (setting) => setting.id === "fan-speed-settings-summer-lower"
     )?.value ||
       0);
 
   const defaultFanSpeedWinter =
     Array.isArray(engineerSettings) &&
     (engineerSettings.find(
-      (setting) => setting.id === 'fan-speed-settings-winter-lower'
+      (setting) => setting.id === "fan-speed-settings-winter-lower"
     )?.value ||
       0);
 
   const [co2Level, setCo2Level] = useState<[number, number]>(
     (() => {
       const defaultCo2LevelSetting = engineerSettings.find(
-        (setting) => setting.id === 'co2-level-band-bottom'
+        (setting) => setting.id === "co2-level-band-bottom"
       );
       const upperCo2LevelSetting = engineerSettings.find(
-        (setting) => setting.id === 'co2-level-band-top'
+        (setting) => setting.id === "co2-level-band-top"
       );
 
       const defaultCo2LevelValue =
@@ -66,10 +66,10 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
   const [fanSpeedSummer, setFanSpeedSummer] = useState<[number, number]>(
     (() => {
       const defaultFanSpeedSummerSetting = engineerSettings.find(
-        (setting) => setting.id === 'fan-speed-settings-summer-lower'
+        (setting) => setting.id === "fan-speed-settings-summer-lower"
       );
       const upperFanSpeedSummerSetting = engineerSettings.find(
-        (setting) => setting.id === 'fan-speed-settings-summer-upper'
+        (setting) => setting.id === "fan-speed-settings-summer-upper"
       );
 
       const defaultFanSpeedSummerValue =
@@ -89,10 +89,10 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
   const [fanSpeedWinter, setFanSpeedWinter] = useState<[number, number]>(
     (() => {
       const defaultFanSpeedWinterSetting = engineerSettings.find(
-        (setting) => setting.id === 'fan-speed-settings-winter-lower'
+        (setting) => setting.id === "fan-speed-settings-winter-lower"
       );
       const upperFanSpeedWinterSetting = engineerSettings.find(
-        (setting) => setting.id === 'fan-speed-settings-winter-upper'
+        (setting) => setting.id === "fan-speed-settings-winter-upper"
       );
 
       const defaultFanSpeedWinterValue =
@@ -122,7 +122,7 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
 
         if (lowerLimit > 1000) {
           notification.error({
-            message: 'Value must not be greater than 1000',
+            message: "Value must not be greater than 1000",
           });
 
           return;
@@ -130,24 +130,24 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
         const response1 = await axios.post(
           `${apiUrl}/engineers-settings/co2-level-band-bottom`,
           { value: lowerLimit },
-          { headers: { 'Content-Type': 'application/json' } }
+          { headers: { "Content-Type": "application/json" } }
         );
 
         if (response1.status !== 200) {
-          throw new Error('Failed to fetch data for lower limit');
+          throw new Error("Failed to fetch data for lower limit");
         }
 
         const response2 = await axios.post(
           `${apiUrl}/engineers-settings/co2-level-band-top`,
           { value: upperLimit },
-          { headers: { 'Content-Type': 'application/json' } }
+          { headers: { "Content-Type": "application/json" } }
         );
 
         if (response2.status !== 200) {
-          throw new Error('Failed to fetch data for upper limit');
+          throw new Error("Failed to fetch data for upper limit");
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     }, 2000);
 
@@ -166,24 +166,24 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
         const response1 = await axios.post(
           `${apiUrl}/engineers-settings/fan-speed-settings-summer-lower`,
           { value: lowerLimit },
-          { headers: { 'Content-Type': 'application/json' } }
+          { headers: { "Content-Type": "application/json" } }
         );
 
         if (response1.status !== 200) {
-          throw new Error('Failed to fetch data for lower limit');
+          throw new Error("Failed to fetch data for lower limit");
         }
 
         const response2 = await axios.post(
           `${apiUrl}/engineers-settings/fan-speed-settings-summer-upper`,
           { value: upperLimit },
-          { headers: { 'Content-Type': 'application/json' } }
+          { headers: { "Content-Type": "application/json" } }
         );
 
         if (response2.status !== 200) {
-          throw new Error('Failed to fetch data for upper limit');
+          throw new Error("Failed to fetch data for upper limit");
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     }, 2000);
 
@@ -202,24 +202,24 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
         const response1 = await axios.post(
           `${apiUrl}/engineers-settings/fan-speed-settings-winter-upper`,
           { value: upperLimit },
-          { headers: { 'Content-Type': 'application/json' } }
+          { headers: { "Content-Type": "application/json" } }
         );
 
         if (response1.status !== 200) {
-          throw new Error('Failed to fetch data for lower limit');
+          throw new Error("Failed to fetch data for lower limit");
         }
 
         const response2 = await axios.post(
           `${apiUrl}/engineers-settings/fan-speed-settings-winter-lower`,
           { value: lowerLimit },
-          { headers: { 'Content-Type': 'application/json' } }
+          { headers: { "Content-Type": "application/json" } }
         );
 
         if (response2.status !== 200) {
-          throw new Error('Failed to fetch data for upper limit');
+          throw new Error("Failed to fetch data for upper limit");
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     }, 2000);
 
@@ -231,12 +231,12 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
   }, [fanSpeedWinter]);
 
   return (
-    <div className='w-full border-2 p-4 md:p-2 flex flex-col flex-1'>
-      <h2 className='text-lg font-bold text-gray-900 mb-4'>
+    <div className="w-full border-2 p-4 md:p-2 flex flex-col flex-1">
+      <h2 className="text-lg font-bold text-gray-900 mb-4">
         Engineer&apos;s Settings
       </h2>
-      <div className='mb-5 p-2'>
-        <label className='block text-sm font-medium text-gray-700 mb-1'>
+      <div className="mb-5 p-2">
+        <label className="block text-sm font-medium text-gray-700 mb-1">
           CO2 Level Band
         </label>
         <Slider
@@ -249,8 +249,8 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
           step={50}
         />
       </div>
-      <div className='mb-5 p-2'>
-        <label className='block text-sm font-medium text-gray-700 mb-1'>
+      <div className="mb-5 p-2">
+        <label className="block text-sm font-medium text-gray-700 mb-1">
           Fan Speed Settings - Summer
         </label>
         <Slider
@@ -262,8 +262,8 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
           max={100}
         />
       </div>
-      <div className='mb-8'>
-        <label className='block text-sm font-medium text-gray-700 mb-1'>
+      <div className="mb-5 p-2">
+        <label className="block text-sm font-medium text-gray-700 mb-1">
           Fan Speed Settings - Winter
         </label>
         <Slider
