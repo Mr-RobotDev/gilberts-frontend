@@ -29,6 +29,11 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
         </label>
         <Slider
           disabled
+          tooltip={{
+            open: true,
+            placement: "bottom",
+            color: "blue",
+          }}
           marks={marks}
           value={getSliderValue("supply-fan-speed")}
         />
@@ -39,6 +44,11 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
         </label>
         <Slider
           disabled
+          tooltip={{
+            open: true,
+            placement: "bottom",
+            color: "blue",
+          }}
           marks={marks}
           value={getSliderValue("extract-fan-speed")}
         />
@@ -49,6 +59,12 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
         </label>
         <Slider
           disabled
+          tooltip={{
+            formatter: (value) => `${value} ppm`,
+            open: true,
+            placement: "bottom",
+            color: "blue",
+          }}
           min={0}
           max={5000}
           marks={co2marks}
@@ -61,6 +77,12 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
         </label>
         <Slider
           disabled
+          tooltip={{
+            formatter: (value) => `${value}°C`,
+            open: true,
+            placement: "bottom",
+            color: "blue",
+          }}
           min={0}
           max={30}
           marks={roomTemperatureLevelMarks}
@@ -73,6 +95,12 @@ const CurrentReadings: React.FC<CurrentReadingsProps> = ({
         </label>
         <Slider
           disabled
+          tooltip={{
+            formatter: (value) => `${value}°C`,
+            open: true,
+            placement: "bottom",
+            color: "blue",
+          }}
           min={-10}
           max={30}
           marks={outsideAirTemperatureMarks}

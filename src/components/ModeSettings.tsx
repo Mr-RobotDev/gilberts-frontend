@@ -122,6 +122,12 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
         </label>
         <Slider
           disabled
+          tooltip={{
+            formatter: (value) => `${value} %`,
+            open: true,
+            placement: "bottom",
+            color: "blue",
+          }}
           min={0}
           max={100}
           marks={marks}
@@ -134,10 +140,15 @@ const ModeSettings: React.FC<ModeSettingsProps> = ({ marks, modeSettings }) => {
         </label>
         <Slider
           disabled
+          tooltip={{
+            formatter: (value) => `${value} %`,
+            open: true,
+            placement: "bottom",
+            color: "blue",
+          }}
           min={0}
           max={100}
           marks={marks}
-          
           value={heatExchangerOutput}
         />
       </div>
