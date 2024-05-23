@@ -1,5 +1,5 @@
-import { Settings } from "@/types/Setting";
 import { Slider } from "antd";
+import { Settings } from "@/types/Setting";
 
 interface CurrentReadingsProps {
   marks: Record<number, string>;

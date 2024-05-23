@@ -1,11 +1,10 @@
 "use client";
 
-import axios from "axios";
-import { Slider } from "antd";
 import { useEffect, useState } from "react";
+import { Slider, notification } from "antd";
 import { debounce } from "lodash";
+import axios from "axios";
 import { Settings } from "@/types/Setting";
-import { notification } from "antd";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 interface EngineerSettingsProps {

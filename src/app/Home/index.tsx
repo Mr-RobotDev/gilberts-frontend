@@ -1,9 +1,9 @@
-'use client';
-import EngineerSettings from '@/components/EngineersSettings';
-import CurrentReadings from '@/components/CurrentReadings';
-import ModeSettings from '@/components/ModeSettings';
-import OperatorInfluence from '@/components/OperatornInfluence';
-import Image from 'next/image';
+"use client";
+import Image from "next/image";
+import EngineerSettings from "@/components/EngineersSettings";
+import CurrentReadings from "@/components/CurrentReadings";
+import ModeSettings from "@/components/ModeSettings";
+import OperatorInfluence from "@/components/OperatornInfluence";
 
 import {
   useCurrentReadings,
@@ -11,9 +11,9 @@ import {
   useModeSettings,
   useOperatorInfluence,
   useTeacherInterface,
-} from '@/fetchData';
-import { Spin } from 'antd';
-import TeacherInterface from '@/components/TeachersInterface';
+} from "@/fetchData";
+import { Spin } from "antd";
+import TeacherInterface from "@/components/TeachersInterface";
 
 interface HomePageProps {}
 
@@ -32,28 +32,32 @@ const HomePage: React.FC<HomePageProps> = ({}) => {
     !operatorInfluence
   ) {
     return (
-      <div className='flex w-screen h-screen items-center justify-center'>
-        <Spin size='large' />
+      <div className="flex w-screen h-screen items-center justify-center">
+        <Spin size="large" />
       </div>
     );
   }
 
-  const co2Marks = { 0: '0', 5000: '5000' };
-  const marks = { 0: '0', 100: '100' };
+  const co2Marks = { 0: "0", 5000: "5000" };
+  const marks = { 0: "0", 100: "100" };
 
   return (
-    <div className='container mx-auto p-4'>
-      <div className='py-8'>
-        <Image src='/gilbert-logo.jpeg' alt='Logo' width={200} height={200} />
+    <div className="container mx-auto p-4">
+      <div className="py-8">
+        <Image src="/gilbert-logo.jpeg" alt="Logo" width={200} height={200} />
       </div>
 
-      <div className='flex flex-col md:flex-row gap-3'>
+      <div className="flex flex-col md:flex-row gap-3">
         <EngineerSettings
           co2Marks={co2Marks}
           marks={marks}
           engineerSettings={engineerSettings}
         />
-        <CurrentReadings marks={marks} co2marks={co2Marks} currentReadings={currentReadings} />
+        <CurrentReadings
+          marks={marks}
+          co2marks={co2Marks}
+          currentReadings={currentReadings}
+        />
         <ModeSettings marks={marks} modeSettings={modeSettings} />
         <OperatorInfluence
           co2Marks={co2Marks}
@@ -61,7 +65,7 @@ const HomePage: React.FC<HomePageProps> = ({}) => {
         />
       </div>
 
-      <div className='flex justify-end py-4'>
+      <div className="flex justify-end py-4">
         <div></div>
         <TeacherInterface teacherInterface={teacherInterface} />
       </div>

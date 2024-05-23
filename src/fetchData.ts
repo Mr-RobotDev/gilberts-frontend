@@ -1,14 +1,14 @@
-import useSWR from 'swr';
+import useSWR from "swr";
 
 async function fetchData(url: string) {
   const res = await fetch(url, {
     headers: {
-      'Cache-Control': 'no-store',
+      "Cache-Control": "no-store",
     },
   });
 
   if (!res.ok) {
-    throw new Error('Failed to fetch data');
+    throw new Error("Failed to fetch data");
   }
 
   return res.json();

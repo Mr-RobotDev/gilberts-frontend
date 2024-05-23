@@ -1,5 +1,5 @@
-import { Select, Slider } from "antd";
 import { useEffect, useState } from "react";
+import { Select, Slider } from "antd";
 import axios from "axios";
 import { Settings } from "@/types/Setting";
 
