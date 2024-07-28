@@ -232,7 +232,7 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
   return (
     <div className="w-full border-2 p-4 md:p-2 flex flex-col flex-1">
       <h2 className="text-lg font-bold text-gray-900 mb-4">
-        Engineer&apos;s Settings
+        Room Settings
       </h2>
       <div className="mb-5 p-2">
         <label className="block text-sm font-medium text-gray-700 mb-1">

@@ -13,7 +13,7 @@ const useAuthRedirection = () => {
     if (!isAuthenticated) {
       router.push('/access')
     } else {
-      if (pathname === 'settings') {
+      if (pathname === 'settings' || pathname === '/') {
         router.push('/settings')
       } else if (pathname === 'teacher-interface') {
         router.push('/teacher-interface')
