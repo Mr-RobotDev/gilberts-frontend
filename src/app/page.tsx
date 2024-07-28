@@ -1,5 +1,14 @@
-import HomePage from './Home';
+'use client'
+import useAuthRedirection from '@/hooks/useAuthRedirection';
+import { Metadata } from 'next';
 
-export default async function Home() {
-  return <HomePage />;
+function AuthRedirectionComponent() {
+  useAuthRedirection();
+  return null;
+}
+
+export default function Home() {
+  return <>
+    <AuthRedirectionComponent />
+  </>;
 }
