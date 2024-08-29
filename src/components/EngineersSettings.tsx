@@ -147,7 +147,7 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
       </h2>
       <div className="mb-5 p-2">
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          CO2 Level Band
+          CO2 Set Point
         </label>
         <Slider
           range
@@ -161,7 +161,7 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
       </div>
       <div className="mb-5 p-2">
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          CO2 Set Point
+          Temperature Set Point
         </label>
         <Slider
           tooltip={{
