@@ -69,7 +69,7 @@ const HomePage: React.FC<HomePageProps> = ({ }) => {
 
       <div className="flex justify-end py-4">
         <div></div>
-        <TeacherInterface teacherInterface={teacherInterface} />
+        <TeacherInterface teacherInterfaceResponse={teacherInterface} />
       </div>
     </div>
   );

@@ -45,7 +45,7 @@ const TeacherInterfacePage = () => {
 
     <div className="flex justify-center py-4">
       <div></div>
-      <TeacherInterface teacherInterface={teacherInterface} />
+      <TeacherInterface teacherInterfaceResponse={teacherInterface} />
     </div>
   </div>
   );

@@ -8,13 +8,19 @@ enum ButtonValue {
   HEAT_BOOST = 3,
   OFF = 4,
 }
+
+type teacherInterfaceResponse = {
+  id: string;
+  value: number;
+}
 interface TeacherInterfaceProps {
-  teacherInterface: number;
+  teacherInterfaceResponse: teacherInterfaceResponse[];
 }
 
 const TeacherInterface: React.FC<TeacherInterfaceProps> = ({
-  teacherInterface,
+  teacherInterfaceResponse,
 }) => {
+  const teacherInterface = teacherInterfaceResponse.find(e => e.id === 'teacher-interface')?.value
   const [selectedButton, setSelectedButton] = useState<ButtonValue | null>(
     () => {
       switch (teacherInterface) {

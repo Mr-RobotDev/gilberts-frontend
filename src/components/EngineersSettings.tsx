@@ -170,7 +170,7 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
             color: "blue",
             autoAdjustOverflow: false,
           }}
-          marks={{ 0: '0', 35: '35' }}
+          marks={innerRoomMarks}
           min={0}
           max={35}
           value={innerRoomSetPoint}

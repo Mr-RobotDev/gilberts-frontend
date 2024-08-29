@@ -50,6 +50,7 @@ const SettingsPage = () => {
 
   const co2Marks = { 0: "0", 5000: "5000" };
   const marks = { 0: "0", 100: "100" };
+  const innerRoomMarks = { 0: "0", 35: "35" };
 
 
   const handleLogout = () => {
@@ -68,6 +69,7 @@ const SettingsPage = () => {
       <div className="flex flex-col md:flex-row gap-3">
         <EngineerSettings
           co2Marks={co2Marks}
+          innerRoomMarks={innerRoomMarks}
           marks={marks}
           engineerSettings={engineerSettings}
         />
