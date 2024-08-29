@@ -41,38 +41,8 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
     )?.value ||
       0);
 
-  const [co2Level, setCo2Level] = useState<[number, number]>(
-    (() => {
-      const defaultCo2LevelSetting = engineerSettings.find(
-        (setting) => setting.id === "co2-level-band-bottom"
-      );
-      const upperCo2LevelSetting = engineerSettings.find(
-        (setting) => setting.id === "co2-level-band-top"
-      );
-
-      const defaultCo2LevelValue =
-        defaultCo2LevelSetting?.value !== undefined
-          ? defaultCo2LevelSetting.value
-          : 0;
-
-      const upperCo2LevelValue =
-        upperCo2LevelSetting?.value !== undefined
-          ? upperCo2LevelSetting.value
-          : 0;
-
-      return [defaultCo2LevelValue, upperCo2LevelValue];
-    })()
-  );
-
-  const [innerRoomSetPoint, setInnerRoomSetPoint] = useState<number>(
-    (() => {
-      const defaultInnerRoomSetting = engineerSettings.find(
-        (setting) => setting.id === "indoor-room-set-point"
-      );
-
-      return defaultInnerRoomSetting?.value || 0;
-    })()
-  );
+  const [co2SetPoint, setCo2SetPoint] = useState<number>(engineerSettings.find(setting => setting.id === "co2-set-point")?.value || 0);
+  const [temperatureSetPoint, setTemperatureSetPoint] = useState<number>(engineerSettings.find(setting => setting.id === "temperature-set-point")?.value || 0);
 
   const onSliderChange =
     (setState: React.Dispatch<React.SetStateAction<SliderState>>) =>
@@ -80,63 +50,40 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
         setState(value as SliderState);
       };
 
-  useEffect(() => {
-    const debouncedApiCall = debounce(async (values: [number, number]) => {
-      try {
-        const [lowerLimit, upperLimit] = values;
-
-        if (lowerLimit > 1000) {
-          notification.error({
-            message: "Value must not be greater than 1000",
-          });
-
-          return;
-        }
-        const response1 = await axios.post(
-          `${apiUrl}/room-settings/co2-level-band-bottom`,
-          { value: lowerLimit },
-          { headers: { "Content-Type": "application/json" } }
-        );
-
-        if (response1.status !== 200) {
-          throw new Error("Failed to fetch data for lower limit");
-        }
-
-        const response2 = await axios.post(
-          `${apiUrl}/room-settings/co2-level-band-top`,
-          { value: upperLimit },
-          { headers: { "Content-Type": "application/json" } }
-        );
-
-        if (response2.status !== 200) {
-          throw new Error("Failed to fetch data for upper limit");
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }, 2000);
-
-    debouncedApiCall([...co2Level]);
-
-    return () => {
-      debouncedApiCall.cancel();
-    };
-  }, [co2Level]);
-
-  const onChange = (value: number) => {
-    setInnerRoomSetPoint(value);
+  const onChangeTemperatureSetPoint = (value: number) => {
+    setTemperatureSetPoint(value);
   };
 
-  const onChangeComplete = async (value: number) => {
-    const response = await axios.post(`${apiUrl}/room-settings/indoor-room-set-point`, { value: value })
+  const onChangeCO2SetPoint = (value: number) => {
+    setCo2SetPoint(value)
+  }
+
+  const onChangeTemperatureSetPointComplete = async (value: number) => {
+    const response = await axios.post(`${apiUrl}/room-settings/temperature-set-point`, { value: value })
 
     if (response.status !== 200) {
       throw new Error("Failed to Updated the InDoor room Set Point");
     }
 
     notification.success({
-      message: "Indoor room Set Point updated successfully",
+      message: "Temperature Set Point updated successfully",
     });
+  };
+
+  const onChangeCo2SetPointComplete = async (value: number) => {
+    try {
+      const response = await axios.post(`${apiUrl}/room-settings/co2-set-point`, { value: value })
+
+      if (response.status !== 200) {
+        throw new Error("Failed to Updated the InDoor room Set Point");
+      }
+
+      notification.success({
+        message: "CO2 Set Point updated successfully",
+      });
+    } catch (error) {
+      console.log('Error ->', error)
+    }
   };
 
 
@@ -150,13 +97,19 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
           CO2 Set Point
         </label>
         <Slider
-          range
+          tooltip={{
+            open: true,
+            placement: "bottom",
+            color: "blue",
+            autoAdjustOverflow: false,
+          }}
           marks={co2Marks}
-          defaultValue={co2Level}
-          onChangeComplete={onSliderChange(setCo2Level)}
+          step={50}
           min={0}
           max={5000}
-          step={50}
+          value={co2SetPoint}
+          onChange={onChangeCO2SetPoint}
+          onChangeComplete={onChangeCo2SetPointComplete}
         />
       </div>
       <div className="mb-5 p-2">
@@ -173,9 +126,9 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
           marks={innerRoomMarks}
           min={0}
           max={35}
-          value={innerRoomSetPoint}
-          onChange={onChange}
-          onChangeComplete={onChangeComplete}
+          value={temperatureSetPoint}
+          onChange={onChangeTemperatureSetPoint}
+          onChangeComplete={onChangeTemperatureSetPointComplete}
         />
       </div>
     </div>
