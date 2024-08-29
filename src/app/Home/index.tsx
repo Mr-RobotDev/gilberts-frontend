@@ -15,9 +15,9 @@ import {
 import { Spin } from "antd";
 import TeacherInterface from "@/components/TeachersInterface";
 
-interface HomePageProps {}
+interface HomePageProps { }
 
-const HomePage: React.FC<HomePageProps> = ({}) => {
+const HomePage: React.FC<HomePageProps> = ({ }) => {
   const { data: currentReadings } = useCurrentReadings();
   const { data: modeSettings } = useModeSettings();
   const { data: engineerSettings } = useEngineerSettings();
@@ -40,6 +40,7 @@ const HomePage: React.FC<HomePageProps> = ({}) => {
 
   const co2Marks = { 0: "0", 5000: "5000" };
   const marks = { 0: "0", 100: "100" };
+  const innerRoomMarks = { 0: "0", 35: "35" };
 
   return (
     <div className="container mx-auto p-4">
@@ -49,6 +50,7 @@ const HomePage: React.FC<HomePageProps> = ({}) => {
 
       <div className="flex flex-col md:flex-row gap-3">
         <EngineerSettings
+          innerRoomMarks={innerRoomMarks}
           co2Marks={co2Marks}
           marks={marks}
           engineerSettings={engineerSettings}

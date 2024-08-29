@@ -10,12 +10,14 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 interface EngineerSettingsProps {
   co2Marks: Record<number, string>;
   marks: Record<number, string>;
+  innerRoomMarks: Record<number, string>;
   engineerSettings: Settings<"engineerSettings">;
 }
 type SliderState = [number, number];
 
 const EngineerSettings: React.FC<EngineerSettingsProps> = ({
   co2Marks,
+  innerRoomMarks,
   marks,
   engineerSettings,
 }) => {
@@ -62,57 +64,21 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
     })()
   );
 
-  const [fanSpeedSummer, setFanSpeedSummer] = useState<[number, number]>(
+  const [innerRoomSetPoint, setInnerRoomSetPoint] = useState<number>(
     (() => {
-      const defaultFanSpeedSummerSetting = engineerSettings.find(
-        (setting) => setting.id === "fan-speed-settings-summer-lower"
-      );
-      const upperFanSpeedSummerSetting = engineerSettings.find(
-        (setting) => setting.id === "fan-speed-settings-summer-upper"
+      const defaultInnerRoomSetting = engineerSettings.find(
+        (setting) => setting.id === "indoor-room-set-point"
       );
 
-      const defaultFanSpeedSummerValue =
-        defaultFanSpeedSummerSetting?.value !== undefined
-          ? defaultFanSpeedSummerSetting.value
-          : 0;
-
-      const upperFanSpeedSummerValue =
-        upperFanSpeedSummerSetting?.value !== undefined
-          ? upperFanSpeedSummerSetting.value
-          : 0;
-
-      return [defaultFanSpeedSummerValue, upperFanSpeedSummerValue];
-    })()
-  );
-
-  const [fanSpeedWinter, setFanSpeedWinter] = useState<[number, number]>(
-    (() => {
-      const defaultFanSpeedWinterSetting = engineerSettings.find(
-        (setting) => setting.id === "fan-speed-settings-winter-lower"
-      );
-      const upperFanSpeedWinterSetting = engineerSettings.find(
-        (setting) => setting.id === "fan-speed-settings-winter-upper"
-      );
-
-      const defaultFanSpeedWinterValue =
-        defaultFanSpeedWinterSetting?.value !== undefined
-          ? defaultFanSpeedWinterSetting.value
-          : 0;
-
-      const upperFanSpeedWinterValue =
-        upperFanSpeedWinterSetting?.value !== undefined
-          ? upperFanSpeedWinterSetting.value
-          : 0;
-
-      return [defaultFanSpeedWinterValue, upperFanSpeedWinterValue];
+      return defaultInnerRoomSetting?.value || 0;
     })()
   );
 
   const onSliderChange =
     (setState: React.Dispatch<React.SetStateAction<SliderState>>) =>
-    (value: number[]) => {
-      setState(value as SliderState);
-    };
+      (value: number[]) => {
+        setState(value as SliderState);
+      };
 
   useEffect(() => {
     const debouncedApiCall = debounce(async (values: [number, number]) => {
@@ -127,7 +93,7 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
           return;
         }
         const response1 = await axios.post(
-          `${apiUrl}/engineers-settings/co2-level-band-bottom`,
+          `${apiUrl}/room-settings/co2-level-band-bottom`,
           { value: lowerLimit },
           { headers: { "Content-Type": "application/json" } }
         );
@@ -137,7 +103,7 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
         }
 
         const response2 = await axios.post(
-          `${apiUrl}/engineers-settings/co2-level-band-top`,
+          `${apiUrl}/room-settings/co2-level-band-top`,
           { value: upperLimit },
           { headers: { "Content-Type": "application/json" } }
         );
@@ -157,77 +123,22 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
     };
   }, [co2Level]);
 
-  useEffect(() => {
-    const debouncedApiCall = debounce(async (values: [number, number]) => {
-      try {
-        const [lowerLimit, upperLimit] = values;
+  const onChange = (value: number) => {
+    setInnerRoomSetPoint(value);
+  };
 
-        const response1 = await axios.post(
-          `${apiUrl}/engineers-settings/fan-speed-settings-summer-lower`,
-          { value: lowerLimit },
-          { headers: { "Content-Type": "application/json" } }
-        );
+  const onChangeComplete = async (value: number) => {
+    const response = await axios.post(`${apiUrl}/room-settings/indoor-room-set-point`, {value: value})
 
-        if (response1.status !== 200) {
-          throw new Error("Failed to fetch data for lower limit");
-        }
+    if (response.status !== 200) {
+      throw new Error("Failed to Updated the InDoor room Set Point");
+    }
 
-        const response2 = await axios.post(
-          `${apiUrl}/engineers-settings/fan-speed-settings-summer-upper`,
-          { value: upperLimit },
-          { headers: { "Content-Type": "application/json" } }
-        );
+    notification.success({
+      message: "Indoor room Set Point updated successfully",
+    });
+  };
 
-        if (response2.status !== 200) {
-          throw new Error("Failed to fetch data for upper limit");
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }, 2000);
-
-    debouncedApiCall([...fanSpeedSummer]);
-
-    return () => {
-      debouncedApiCall.cancel();
-    };
-  }, [fanSpeedSummer]);
-
-  useEffect(() => {
-    const debouncedApiCall = debounce(async (values: [number, number]) => {
-      try {
-        const [lowerLimit, upperLimit] = values;
-
-        const response1 = await axios.post(
-          `${apiUrl}/engineers-settings/fan-speed-settings-winter-upper`,
-          { value: upperLimit },
-          { headers: { "Content-Type": "application/json" } }
-        );
-
-        if (response1.status !== 200) {
-          throw new Error("Failed to fetch data for lower limit");
-        }
-
-        const response2 = await axios.post(
-          `${apiUrl}/engineers-settings/fan-speed-settings-winter-lower`,
-          { value: lowerLimit },
-          { headers: { "Content-Type": "application/json" } }
-        );
-
-        if (response2.status !== 200) {
-          throw new Error("Failed to fetch data for upper limit");
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }, 2000);
-
-    debouncedApiCall([...fanSpeedWinter]);
-
-    return () => {
-      debouncedApiCall.cancel();
-    };
-  }, [fanSpeedWinter]);
 
   return (
     <div className="w-full border-2 p-4 md:p-2 flex flex-col flex-1">
@@ -250,28 +161,21 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
       </div>
       <div className="mb-5 p-2">
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Fan Speed Settings - Summer
+          Indoor Room Set Point
         </label>
         <Slider
-          range
-          marks={marks}
-          defaultValue={fanSpeedSummer}
-          onChangeComplete={onSliderChange(setFanSpeedSummer)}
+          tooltip={{
+            open: true,
+            placement: "bottom",
+            color: "blue",
+            autoAdjustOverflow: false,
+          }}
+          marks={{ 0: '0', 35: '35' }}
           min={0}
-          max={100}
-        />
-      </div>
-      <div className="mb-5 p-2">
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Fan Speed Settings - Winter
-        </label>
-        <Slider
-          range
-          marks={marks}
-          defaultValue={fanSpeedWinter}
-          onChangeComplete={onSliderChange(setFanSpeedWinter)}
-          min={0}
-          max={100}
+          max={35}
+          value={innerRoomSetPoint}
+          onChange={onChange}
+          onChangeComplete={onChangeComplete}
         />
       </div>
     </div>

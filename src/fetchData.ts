@@ -27,7 +27,7 @@ export function useModeSettings() {
 
 export function useEngineerSettings() {
   return useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/engineers-settings`,
+    `${process.env.NEXT_PUBLIC_API_URL}/room-settings`,
     fetchData
   );
 }
