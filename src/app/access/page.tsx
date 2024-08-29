@@ -6,7 +6,6 @@ import Image from 'next/image'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { login } from '../store/slice/authSlice'
-import useSessionTimeout from '@/hooks/useSessionTimeout'
 
 const AuthPage = () => {
   const [password, setPassword] = useState('')
@@ -53,7 +52,7 @@ const AuthPage = () => {
 
       setTimeout(() => {
         setActiveKey(null);
-      }, 200); // Reset after 200ms for visual feedback
+      }, 300); // Reset after 200ms for visual feedback
     } else if (e.key === 'Enter') {
       handleEnter();
     } else if (e.key === 'Backspace') {
