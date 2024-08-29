@@ -128,7 +128,7 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
   };
 
   const onChangeComplete = async (value: number) => {
-    const response = await axios.post(`${apiUrl}/room-settings/indoor-room-set-point`, {value: value})
+    const response = await axios.post(`${apiUrl}/room-settings/indoor-room-set-point`, { value: value })
 
     if (response.status !== 200) {
       throw new Error("Failed to Updated the InDoor room Set Point");
@@ -161,7 +161,7 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
       </div>
       <div className="mb-5 p-2">
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Indoor Room Set Point
+          CO2 Set Point
         </label>
         <Slider
           tooltip={{

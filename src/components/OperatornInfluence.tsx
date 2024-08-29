@@ -139,6 +139,7 @@ const OperatorInfluence: React.FC<OperatorInfluenceProps> = ({
           defaultValue={outsideAirTemperature}
           onChangeComplete={setOutsideAirTemperature}
           marks={marks}
+          step={0.5}
         />
       </div>
       <div className="mb-5 p-2">
@@ -151,6 +152,7 @@ const OperatorInfluence: React.FC<OperatorInfluenceProps> = ({
           max={35}
           defaultValue={indoorRoomTemperature}
           onChangeComplete={setIndoorRoomTemperature}
+          step={0.5}
         />
       </div>
       <div className="mb-5 p-2">
