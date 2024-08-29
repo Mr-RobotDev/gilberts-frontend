@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Button } from "antd";
 import axios from "axios";
+import TeacherInterfaceSliders from "./TeacherInterfaceSliders";
+import { teacherInterfaceResponse } from "@/types/Setting";
 
 enum ButtonValue {
   AUTO = 1,
@@ -9,10 +11,6 @@ enum ButtonValue {
   OFF = 4,
 }
 
-type teacherInterfaceResponse = {
-  id: string;
-  value: number;
-}
 interface TeacherInterfaceProps {
   teacherInterfaceResponse: teacherInterfaceResponse[];
 }
@@ -57,60 +55,65 @@ const TeacherInterface: React.FC<TeacherInterfaceProps> = ({
   };
 
   return (
-    <div className="border-2 p-2 flex flex-col gap-3 w-full md:w-4/12">
-      <p className="font-bold text-md md:text-lg text-gray-900">
-        Teacher Interface{" "}
-      </p>
+    <>
+      <div className=" md:w-4/12 flex flex-col gap-3">
+        <div className="border-2 p-2 flex flex-col gap-3 w-full">
+          <p className="font-bold text-md md:text-lg text-gray-900">
+            Teacher Interface{" "}
+          </p>
 
-      <Button
-        type={selectedButton === ButtonValue.AUTO ? "primary" : "default"}
-        onClick={() => handleButtonClick(ButtonValue.AUTO)}
-        style={{
-          backgroundColor:
-            selectedButton === ButtonValue.AUTO ? "#1890ff" : "transparent",
-          color: selectedButton === ButtonValue.AUTO ? "#fff" : "#000",
-        }}
-      >
-        AUTO
-      </Button>
-      <Button
-        type={selectedButton === ButtonValue.VENT_BOOST ? "primary" : "default"}
-        onClick={() => handleButtonClick(ButtonValue.VENT_BOOST)}
-        style={{
-          backgroundColor:
-            selectedButton === ButtonValue.VENT_BOOST
-              ? "#1890ff"
-              : "transparent",
-          color: selectedButton === ButtonValue.VENT_BOOST ? "#fff" : "#000",
-        }}
-      >
-        VENT BOOST
-      </Button>
-      <Button
-        type={selectedButton === ButtonValue.HEAT_BOOST ? "primary" : "default"}
-        onClick={() => handleButtonClick(ButtonValue.HEAT_BOOST)}
-        style={{
-          backgroundColor:
-            selectedButton === ButtonValue.HEAT_BOOST
-              ? "#1890ff"
-              : "transparent",
-          color: selectedButton === ButtonValue.HEAT_BOOST ? "#fff" : "#000",
-        }}
-      >
-        HEAT BOOST
-      </Button>
-      <Button
-        type={selectedButton === ButtonValue.OFF ? "primary" : "default"}
-        onClick={() => handleButtonClick(ButtonValue.OFF)}
-        style={{
-          backgroundColor:
-            selectedButton === ButtonValue.OFF ? "#1890ff" : "transparent",
-          color: selectedButton === ButtonValue.OFF ? "#fff" : "#000",
-        }}
-      >
-        OFF
-      </Button>
-    </div>
+          <Button
+            type={selectedButton === ButtonValue.AUTO ? "primary" : "default"}
+            onClick={() => handleButtonClick(ButtonValue.AUTO)}
+            style={{
+              backgroundColor:
+                selectedButton === ButtonValue.AUTO ? "#1890ff" : "transparent",
+              color: selectedButton === ButtonValue.AUTO ? "#fff" : "#000",
+            }}
+          >
+            AUTO
+          </Button>
+          <Button
+            type={selectedButton === ButtonValue.VENT_BOOST ? "primary" : "default"}
+            onClick={() => handleButtonClick(ButtonValue.VENT_BOOST)}
+            style={{
+              backgroundColor:
+                selectedButton === ButtonValue.VENT_BOOST
+                  ? "#1890ff"
+                  : "transparent",
+              color: selectedButton === ButtonValue.VENT_BOOST ? "#fff" : "#000",
+            }}
+          >
+            VENT BOOST
+          </Button>
+          <Button
+            type={selectedButton === ButtonValue.HEAT_BOOST ? "primary" : "default"}
+            onClick={() => handleButtonClick(ButtonValue.HEAT_BOOST)}
+            style={{
+              backgroundColor:
+                selectedButton === ButtonValue.HEAT_BOOST
+                  ? "#1890ff"
+                  : "transparent",
+              color: selectedButton === ButtonValue.HEAT_BOOST ? "#fff" : "#000",
+            }}
+          >
+            HEAT BOOST
+          </Button>
+          <Button
+            type={selectedButton === ButtonValue.OFF ? "primary" : "default"}
+            onClick={() => handleButtonClick(ButtonValue.OFF)}
+            style={{
+              backgroundColor:
+                selectedButton === ButtonValue.OFF ? "#1890ff" : "transparent",
+              color: selectedButton === ButtonValue.OFF ? "#fff" : "#000",
+            }}
+          >
+            OFF
+          </Button>
+        </div>
+        <TeacherInterfaceSliders teacherInterfaceResponse={teacherInterfaceResponse} />
+      </div>
+    </>
   );
 };
 

@@ -8,3 +8,8 @@ export type Settings<T extends string> = Record<T, Setting[]> & {
     predicate: (value: Setting, index: number, obj: Setting[]) => boolean
   ) => Setting | undefined;
 };
+
+export type teacherInterfaceResponse = {
+  id: string;
+  value: number;
+}
