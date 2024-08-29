@@ -84,67 +84,67 @@ const AuthPage = () => {
         <Image src="/gilbert-logo.jpeg" alt="Logo" width={200} height={200} />
       </div>
       <div className='flex justify-center items-center flex-col mt-28'>
-        <div>
+        <div className='flex flex-col gap-2'>
           <Input type='text' className='h-16 text-2xl cursor-not-allowed text-center' readOnly value={displayPassword} />
           <div className='flex flex-row gap-2'>
             <div
               onClick={() => addToPassword('1')}
-              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '1' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              className={` bg-slate-200 flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-md ${activeKey === '1' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
               1
             </div>
             <div
               onClick={() => addToPassword('2')}
-              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '2' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              className={`bg-slate-200 flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-md ${activeKey === '2' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
               2
             </div>
             <div
               onClick={() => addToPassword('3')}
-              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '3' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              className={`bg-slate-200 flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-md ${activeKey === '3' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
               3
             </div>
           </div>
           <div className='flex flex-row gap-2'>
             <div
               onClick={() => addToPassword('4')}
-              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '4' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              className={`bg-slate-200 flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-md ${activeKey === '4' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
               4
             </div>
             <div
               onClick={() => addToPassword('5')}
-              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '5' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              className={`bg-slate-200 flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-md ${activeKey === '5' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
               5
             </div>
             <div
               onClick={() => addToPassword('6')}
-              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '6' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              className={`bg-slate-200 flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-md ${activeKey === '6' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
               6
             </div>
           </div>
           <div className='flex flex-row gap-2'>
             <div
               onClick={() => addToPassword('7')}
-              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '7' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              className={`bg-slate-200 flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-md ${activeKey === '7' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
               7
             </div>
             <div
               onClick={() => addToPassword('8')}
-              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '8' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              className={`bg-slate-200 flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-md ${activeKey === '8' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
               8
             </div>
             <div
               onClick={() => addToPassword('9')}
-              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '9' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              className={`bg-slate-200 flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-md ${activeKey === '9' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
               9
             </div>
           </div>
           <div className='flex flex-row gap-2'>
-            <div onClick={clearPassword} className='flex-1 h-16 flex justify-center items-center text-sm cursor-pointer hover:bg-gray-300 duration-200 transition-all transform rounded-sm'>Clear</div>
+            <div onClick={clearPassword} className='bg-red-200 flex-1 h-16 flex justify-center items-center text-sm cursor-pointer hover:bg-red-300 duration-200 transition-all transform rounded-md'>Clear</div>
             <div
               onClick={() => addToPassword('0')}
-              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '0' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              className={`bg-slate-200 flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-md ${activeKey === '0' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
               0
             </div>
-            <div onClick={handleEnter} className='flex-1 h-16 flex justify-center items-center text-sm cursor-pointer hover:bg-gray-300 duration-200 transition-all transform rounded-sm'>Enter</div>
+            <div onClick={handleEnter} className='bg-blue-200 flex-1 h-16 flex justify-center items-center text-sm cursor-pointer hover:bg-blue-300 duration-200 transition-all transform rounded-md'>Enter</div>
           </div>
         </div>
       </div>
