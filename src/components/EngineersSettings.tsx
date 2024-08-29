@@ -62,12 +62,11 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
     const response = await axios.post(`${apiUrl}/room-settings/temperature-set-point`, { value: value })
 
     if (response.status !== 200) {
+      notification.error({
+        message: "Failed to Updated the Temperature Set Point",
+      });
       throw new Error("Failed to Updated the InDoor room Set Point");
     }
-
-    notification.success({
-      message: "Temperature Set Point updated successfully",
-    });
   };
 
   const onChangeCo2SetPointComplete = async (value: number) => {
@@ -75,14 +74,17 @@ const EngineerSettings: React.FC<EngineerSettingsProps> = ({
       const response = await axios.post(`${apiUrl}/room-settings/co2-set-point`, { value: value })
 
       if (response.status !== 200) {
+        notification.error({
+          message: "Failed to Updated the CO2 Set Point",
+        });
         throw new Error("Failed to Updated the InDoor room Set Point");
       }
 
-      notification.success({
-        message: "CO2 Set Point updated successfully",
-      });
     } catch (error) {
       console.log('Error ->', error)
+      notification.error({
+        message: "Failed to Updated the CO2 Set Point",
+      });
     }
   };
 
