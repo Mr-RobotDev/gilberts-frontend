@@ -11,10 +11,10 @@ import { useRouter } from "next/navigation";
 
 const TeacherInterfacePage = () => {
   const { data: teacherInterface } = useTeacherInterface();
-  const { isAuthenticated } = useSelector((state: RootState) => state.authReducer)
+  const { isAuthenticated, userType } = useSelector((state: RootState) => state.authReducer)
   const dispatch = useDispatch()
   const router = useRouter()
-  
+
   useEffect(() => {
     if (!isAuthenticated) {
       router.push('/access')
@@ -36,18 +36,21 @@ const TeacherInterfacePage = () => {
 
   return (
     isAuthenticated && <div className="container mx-auto p-4">
-    <div className=" flex justify-between items-center">
-      <div className="py-8">
-        <Image src="/gilbert-logo.jpeg" alt="Logo" width={200} height={200} />
+      <div className=" flex justify-between items-center">
+        <div className="py-8">
+          <Image src="/gilbert-logo.jpeg" alt="Logo" width={200} height={200} />
+        </div>
+        <div className=" flex flex-row items-center gap-7">
+          <p className="text-sm">You are logged In as <b>{userType}</b></p>
+          <Button danger type="primary" onClick={handleLogout} >Logout</Button>
+        </div>
       </div>
-      <Button danger type="primary" onClick={handleLogout} >Logout</Button>
-    </div>
 
-    <div className="flex justify-center py-4">
-      <div></div>
-      <TeacherInterface teacherInterfaceResponse={teacherInterface} />
+      <div className="flex justify-center py-4">
+        <div></div>
+        <TeacherInterface teacherInterfaceResponse={teacherInterface} />
+      </div>
     </div>
-  </div>
   );
 };
 

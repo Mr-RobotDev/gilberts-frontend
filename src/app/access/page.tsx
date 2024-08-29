@@ -35,10 +35,10 @@ const AuthPage = () => {
 
   const handleEnter = () => {
     if (password === process.env.NEXT_PUBLIC_SETTINGS_PASSWORD) {
-      dispatch(login())
+      dispatch(login({ userType: 'Engineer' }));
       router.push('/settings')
     } else if (password === process.env.NEXT_PUBLIC_TEACHER_PASSWORD) {
-      dispatch(login())
+      dispatch(login({ userType: 'User' }));
       router.push('/teacher-interface')
     } else {
       toast.error('Incorrect password')

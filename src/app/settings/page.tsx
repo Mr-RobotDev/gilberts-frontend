@@ -22,7 +22,7 @@ import { logout } from "../store/slice/authSlice";
 const SettingsPage = () => {
   const router = useRouter();
   const dispatch = useDispatch()
-  const { isAuthenticated } = useSelector((state: RootState) => state.authReducer)
+  const { isAuthenticated, userType } = useSelector((state: RootState) => state.authReducer)
   useEffect(() => {
     if (!isAuthenticated) {
       router.push('/access')
@@ -54,7 +54,7 @@ const SettingsPage = () => {
 
 
   const handleLogout = () => {
-    dispatch(logout()) 
+    dispatch(logout())
   }
   return (
     isAuthenticated && <div className="container mx-auto p-4">
@@ -62,7 +62,10 @@ const SettingsPage = () => {
         <div className="py-8">
           <Image src="/gilbert-logo.jpeg" alt="Logo" width={200} height={200} />
         </div>
-        <Button danger type="primary" onClick={handleLogout} >Logout</Button>
+        <div className=" flex flex-row items-center gap-7">
+          <p className="text-sm">You are logged In as <b>{userType}</b></p>
+          <Button danger type="primary" onClick={handleLogout} >Logout</Button>
+        </div>
       </div>
 
 
