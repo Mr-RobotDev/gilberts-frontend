@@ -1,7 +1,7 @@
 'use client'
 import { Input } from 'antd'
 import { useRouter } from 'next/navigation'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import Image from 'next/image'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
@@ -11,11 +11,12 @@ import useSessionTimeout from '@/hooks/useSessionTimeout'
 const AuthPage = () => {
   const [password, setPassword] = useState('')
   const [displayPassword, setDisplayPassword] = useState('')
+  const [activeKey, setActiveKey] = useState<string | null>(null)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const addToPassword = (num: string) => {
+  const addToPassword = useCallback((num: string) => {
     setPassword(prevPassword => prevPassword + num)
     setDisplayPassword(prevDisplayPassword => prevDisplayPassword + num)
 
@@ -26,14 +27,14 @@ const AuthPage = () => {
     timeoutRef.current = setTimeout(() => {
       setDisplayPassword('*'.repeat(password.length + 1))
     }, 500)
-  }
+  }, [password.length])
 
   const clearPassword = () => {
     setPassword('')
     setDisplayPassword('')
   }
 
-  const handleEnter = () => {
+  const handleEnter = useCallback(() => {
     if (password === process.env.NEXT_PUBLIC_SETTINGS_PASSWORD) {
       dispatch(login({ userType: 'Engineer' }));
       router.push('/settings')
@@ -43,7 +44,31 @@ const AuthPage = () => {
     } else {
       toast.error('Incorrect password')
     }
-  }
+  }, [dispatch, password, router])
+
+  const handleKeyPress = useCallback((e: KeyboardEvent) => {
+    if (e.key >= '0' && e.key <= '9') {
+      addToPassword(e.key);
+      setActiveKey(e.key);
+
+      setTimeout(() => {
+        setActiveKey(null);
+      }, 200); // Reset after 200ms for visual feedback
+    } else if (e.key === 'Enter') {
+      handleEnter();
+    } else if (e.key === 'Backspace') {
+      setPassword(prevPassword => prevPassword.slice(0, -1));
+      setDisplayPassword(prevDisplayPassword => prevDisplayPassword.slice(0, -1));
+    }
+  }, [addToPassword, handleEnter])
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyPress)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress)
+    }
+  }, [handleKeyPress])
 
   useEffect(() => {
     return () => {
@@ -62,23 +87,63 @@ const AuthPage = () => {
         <div>
           <Input type='text' className='h-16 text-2xl cursor-not-allowed text-center' readOnly value={displayPassword} />
           <div className='flex flex-row gap-2'>
-            <div onClick={() => addToPassword('1')} className='flex-1 h-16 flex justify-center items-center text-xl cursor-pointer hover:bg-gray-300 duration-200 transition-all transform rounded-sm'>1</div>
-            <div onClick={() => addToPassword('2')} className='flex-1 h-16 flex justify-center items-center text-xl cursor-pointer hover:bg-gray-300 duration-200 transition-all transform rounded-sm'>2</div>
-            <div onClick={() => addToPassword('3')} className='flex-1 h-16 flex justify-center items-center text-xl cursor-pointer hover:bg-gray-300 duration-200 transition-all transform rounded-sm'>3</div>
+            <div
+              onClick={() => addToPassword('1')}
+              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '1' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              1
+            </div>
+            <div
+              onClick={() => addToPassword('2')}
+              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '2' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              2
+            </div>
+            <div
+              onClick={() => addToPassword('3')}
+              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '3' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              3
+            </div>
           </div>
           <div className='flex flex-row gap-2'>
-            <div onClick={() => addToPassword('4')} className='flex-1 h-16 flex justify-center items-center text-xl cursor-pointer hover:bg-gray-300 duration-200 transition-all transform rounded-sm'>4</div>
-            <div onClick={() => addToPassword('5')} className='flex-1 h-16 flex justify-center items-center text-xl cursor-pointer hover:bg-gray-300 duration-200 transition-all transform rounded-sm'>5</div>
-            <div onClick={() => addToPassword('6')} className='flex-1 h-16 flex justify-center items-center text-xl cursor-pointer hover:bg-gray-300 duration-200 transition-all transform rounded-sm'>6</div>
+            <div
+              onClick={() => addToPassword('4')}
+              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '4' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              4
+            </div>
+            <div
+              onClick={() => addToPassword('5')}
+              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '5' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              5
+            </div>
+            <div
+              onClick={() => addToPassword('6')}
+              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '6' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              6
+            </div>
           </div>
           <div className='flex flex-row gap-2'>
-            <div onClick={() => addToPassword('7')} className='flex-1 h-16 flex justify-center items-center text-xl cursor-pointer hover:bg-gray-300 duration-200 transition-all transform rounded-sm'>7</div>
-            <div onClick={() => addToPassword('8')} className='flex-1 h-16 flex justify-center items-center text-xl cursor-pointer hover:bg-gray-300 duration-200 transition-all transform rounded-sm'>8</div>
-            <div onClick={() => addToPassword('9')} className='flex-1 h-16 flex justify-center items-center text-xl cursor-pointer hover:bg-gray-300 duration-200 transition-all transform rounded-sm'>9</div>
+            <div
+              onClick={() => addToPassword('7')}
+              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '7' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              7
+            </div>
+            <div
+              onClick={() => addToPassword('8')}
+              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '8' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              8
+            </div>
+            <div
+              onClick={() => addToPassword('9')}
+              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '9' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              9
+            </div>
           </div>
           <div className='flex flex-row gap-2'>
             <div onClick={clearPassword} className='flex-1 h-16 flex justify-center items-center text-sm cursor-pointer hover:bg-gray-300 duration-200 transition-all transform rounded-sm'>Clear</div>
-            <div onClick={() => addToPassword('0')} className='flex-1 h-16 flex justify-center items-center text-xl cursor-pointer hover:bg-gray-300 duration-200 transition-all transform rounded-sm'>0</div>
+            <div
+              onClick={() => addToPassword('0')}
+              className={`flex-1 h-16 flex justify-center items-center text-xl cursor-pointer duration-200 transition-all transform rounded-sm ${activeKey === '0' ? 'bg-gray-300' : 'hover:bg-gray-300'}`}>
+              0
+            </div>
             <div onClick={handleEnter} className='flex-1 h-16 flex justify-center items-center text-sm cursor-pointer hover:bg-gray-300 duration-200 transition-all transform rounded-sm'>Enter</div>
           </div>
         </div>
