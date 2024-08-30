@@ -41,10 +41,11 @@ const TeacherInterfacePage = () => {
           <Image src="/gilbert-logo.jpeg" alt="Logo" width={200} height={200} />
         </div>
         <div className=" flex flex-row items-center gap-7">
-          <p className="text-sm">You are logged In as <b>{userType}</b></p>
+          <p className="hidden md:block text-sm">You are logged In as <b>{userType}</b></p>
           <Button danger type="primary" onClick={handleLogout} >Logout</Button>
         </div>
       </div>
+      <p className="block md:hidden text-sm mb-3">You are logged In as <b>{userType}</b></p>
 
       <div className="flex justify-center py-4">
         <div></div>

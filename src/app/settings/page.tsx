@@ -62,11 +62,13 @@ const SettingsPage = () => {
         <div className="py-8">
           <Image src="/gilbert-logo.jpeg" alt="Logo" width={200} height={200} />
         </div>
-        <div className=" flex flex-row items-center gap-7">
-          <p className="text-sm">You are logged In as <b>{userType}</b></p>
+        <div className=" flex md:flex-row items-center gap-7">
+          <p className="hidden md:block text-sm">You are logged In as <b>{userType}</b></p>
           <Button danger type="primary" onClick={handleLogout} >Logout</Button>
         </div>
+        
       </div>
+      <p className="block md:hidden text-sm mb-3">You are logged In as <b>{userType}</b></p>
 
 
       <div className="flex flex-col md:flex-row gap-3">

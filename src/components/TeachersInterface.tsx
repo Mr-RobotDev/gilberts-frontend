@@ -56,7 +56,7 @@ const TeacherInterface: React.FC<TeacherInterfaceProps> = ({
 
   return (
     <>
-      <div className=" md:w-4/12 flex flex-col gap-3">
+      <div className="w-full md:w-4/12 flex flex-col gap-3">
         <div className="border-2 p-2 flex flex-col gap-3 w-full">
           <p className="font-bold text-md md:text-lg text-gray-900">
             Teacher Interface{" "}
